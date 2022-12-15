@@ -287,7 +287,7 @@
                     <hr>
                     <div class="pie-form">
                         <a href="#">UNCLICKSYSTEM</a>
-                        <a href="#">@SENADOR AFARA</a>
+                        <a href="#">@Juancarlos</a>
                         <hr>
                         <a href="#">« Volver</a>
                     </div>
