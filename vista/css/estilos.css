@@ -15,10 +15,7 @@
 	font-size: 25px;
 	padding-left: 15px;
 }
-.punteroVotante{
-	border:1px solid #E61A1A;
-	width: 410px;
-}
+
 .votoPuntero{
 	font-size: 17px;
 	padding-left: 14px;
@@ -39,4 +36,9 @@
 	text-align: center;
 	color: white;
 	font-size: 17px;
+}
+
+.punteroVotante{
+	border:1px solid #E61A1A;
+	width: 70%;
 }
