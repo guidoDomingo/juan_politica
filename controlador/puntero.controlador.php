@@ -130,7 +130,6 @@ class ControladorPuntero{
 		$tabla = "excel_cordillera_juan";
 
 		$respuesta = ModeloPuntero::mdlDatosExcel($tabla, $item, $valor);
-
 		return $respuesta;
 	}
 
