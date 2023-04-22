@@ -177,10 +177,10 @@ $("#validarCedulaPuntero").change(function () {
             $("#nuevoNombre").val(respuesta["nombre"]);
             $("#nuevoApellido").val(respuesta["apellido"]);
             $("#nuevoBarrio").val(respuesta["direccion"]);
-            $("#nuevoCiudad").val(respuesta["direccion"]);
+            $("#nuevoCiudad").val(respuesta["distrito"]);
             $("#nuevoLugar").val(respuesta["local"]);
             $("#nuevoNumeroMesa").val(respuesta["mesa"]);
-            $("#nuevoOrden").val(respuesta["orden"]);
+            $("#nuevoOrdenMesa").val(respuesta["mesaorden"]);
           },
         });
       }

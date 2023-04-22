@@ -136,13 +136,13 @@
                           TRAEMOS EL ESTADO DE VOTACION VEEDOR
                           =============================================*/
 
-                if ($value["activo_veedor"] != 0) {
+                // if ($value["activo_veedor"] != 0) {
 
-                  $estado_veedor = "<td><button class='btn btn-success btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='0'>Si paso</button></td>";
-                } else {
+                //   $estado_veedor = "<td><button class='btn btn-success btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='0'>Si paso</button></td>";
+                // } else {
 
-                  $estado_veedor = "<td><button class='btn btn-danger btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='1'>No paso</button></td>";
-                }
+                //   $estado_veedor = "<td><button class='btn btn-danger btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='1'>No paso</button></td>";
+                // }
 
                 /*=============================================
                         TRAEMOS LAS ACCIONES
@@ -407,7 +407,7 @@ MODAL AGREGAR USUARIO
                       <i class="fa fa-pencil-alt"></i>
                     </button>
 
-                    <input type="text" class="form-control input-lg" id="nuevoOrden" name="nuevoOrden" placeholder="Ingresar orden de votación" required>
+                    <input type="text" class="form-control input-lg" id="nuevoOrdenMesa" name="nuevoOrden" placeholder="Ingresar orden de votación" required>
 
                   </div>
 
