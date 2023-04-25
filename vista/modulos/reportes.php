@@ -1,70 +1,57 @@
-
 <div class="content-wrapper">
 
-   <section class="content-header d-flex justify-content-between">
-    
-    <h1>
-      
-      Reportes
-    
-    </h1>
+    <section class="content-header d-flex justify-content-between">
 
-    <ol class="breadcrumb ">
-      
-      <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio /</a></li>
-      
-      <li class="active" style="margin-left:7px">Administrar reportes</li>
-    
-    </ol>
+        <h1>
 
-  </section>
+            Reportes
 
-  <section class="content">
+        </h1>
 
-    <div class="box">
+        <ol class="breadcrumb ">
 
+            <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio /</a></li>
 
-      <div class="box-body">
-        
-        <div class="row">
+            <li class="active" style="margin-left:7px">Administrar reportes</li>
+
+        </ol>
+
+    </section>
+
+    <section class="content">
+
+        <div class="box">
 
 
-           <div class="col-md-8 col-xs-12">
-             
-            <?php
+            <div class="box-body">
 
-            include "punteros_mas_votantes.php";
+                <div class="row">
 
-            ?>
+                    <div class="col-md-12 col-xs-12">
 
-           </div>
+                        <?php
+  
+                          include "reporte_voto_totales.php";
+            
+                        ?>
 
-            <div class="col-md-4 col-xs-12">
-             
-            <?php
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
 
-            include "reporte_voto_totales.php";
+                        <?php
 
-            ?>
+                          include "punteros_mas_votantes.php";
 
-           </div>
+                        ?>
 
-           <div class="col-md-6 col-xs-12">
-             
-            <?php
+                    </div>
 
-            //include "reportes/compradores.php";
+                </div>
 
-            ?>
+            </div>
 
-           </div>
-          
-        </div>
+    </section>
 
-      </div>
-      
-    </div>
-
-  </section>
- 
- </div>
+</div>
