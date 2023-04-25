@@ -115,7 +115,7 @@ PRODUCTOS MÁS VENDIDOS
           echo '
           				<li>
 						 
-    						 <p>' . $value["nombre"] . '<span class="pull-right text-' . $colores[$key] . '">   
+    						 <p>' . $value["nombre"] . '<span class="pull-right text-' . $colores[mt_rand(0,55)] . '">   
     						 ' . ceil(intval($votos[0]) * 100 / intval($total["total"])) . '% ,Votantes: <strong>' . $votos[0] . '</strong>, <span class="bg-green text-white votoPuntero p-2">de estos ya votaron: ' . $ya_voto["total"] . '</span></span>
     			       		 </p>
                  
@@ -128,7 +128,7 @@ PRODUCTOS MÁS VENDIDOS
           echo '
           				<li>
 						 
-    						 <p>' . $value["nombre"] . '<span class="pull-right text-' . $colores[$key] . '">   
+    						 <p>' . $value["nombre"] . '<span class="pull-right text-' . $colores[mt_rand(0,55)] . '">   
     						 ' . ceil(intval($votos[0]) * 100 / intval($total["total"])) . '% ,Votantes: <strong>' . $votos[0] . '</strong>, <span class="bg-yellow text-white votoPuntero p-2"> de estos ya votaron: ' . $ya_voto["total"] . '<span> </span>
     			       		 </p>
                  
@@ -141,7 +141,7 @@ PRODUCTOS MÁS VENDIDOS
           echo '
           				<li>
 						 
-    						 <p>' . $value["nombre"] . '<span class="pull-right text-' . $colores[$key] . '">   
+    						 <p>' . $value["nombre"] . '<span class="pull-right text-' . $colores[mt_rand(0,55)] . '">   
     						 ' . ceil(intval($votos[0]) * 100 / intval($total["total"])) . '% ,Votantes: <strong>' . $votos[0] . '</strong>,<span class="bg-red text-white votoPuntero p-2"> de estos ya votaron: ' . $ya_voto["total"] . '<span> </span>
     			       		 </p>
                  
