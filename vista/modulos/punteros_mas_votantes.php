@@ -16,7 +16,6 @@ $colores = [
   'brown',
   'black',
   'grey',
-  'white',
   'indigo',
   'pink',
   'light blue',
@@ -303,7 +302,7 @@ $(document).ready(function() {
                 data: PieData
             },
             {
-                label: "Ya voto",
+                label: "My Second dataset",
                 fillColor: "rgba(151,187,205,0.5)",
                 strokeColor: "rgba(151,187,205,0.8)",
                 highlightFill: "rgba(151,187,205,0.75)",
