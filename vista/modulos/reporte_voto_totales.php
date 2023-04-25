@@ -33,17 +33,19 @@ PRODUCTOS MÁS VENDIDOS
     
       	<div class="row">
 
-	        <div class="col-md-7">
+          
+	        <!-- <div class="col-md-7">
 
-	 			<div class="chart-responsive">
+	 			     <div class="chart-responsive">
 	            
-	            <canvas id="pieChart1" height="150"></canvas>
+	             <canvas id="pieChart1" height="150"></canvas>
 	          
-	          	</div>
+	           </div>
 
-	        </div>
+	        </div> -->
+          
 
-		    <div class="col-md-5">
+		    <div class="col-md-12">
 		      	
 		        <ul class="votosTotales">
       
@@ -99,7 +101,7 @@ PRODUCTOS MÁS VENDIDOS
 
     </div>
 
-    <div class="box-footer no-padding">
+    <!-- <div class="box-footer no-padding">
     	
 		<ul class="">
 			
@@ -135,7 +137,7 @@ PRODUCTOS MÁS VENDIDOS
 
 		</ul>
 
-    </div>
+    </div> -->
 
 </div>
 

@@ -27,7 +27,7 @@ $colores = [
   'navy blue',
   'Brightblue',
   'olive green',
-  ' jet black',
+  'jet black',
   'apple green',
   'apricot',
   'aquamarine',
@@ -51,7 +51,7 @@ $colores = [
   'mustard',
   'oatmeal',
   'ochre',
-  ' off-white',
+  'off-white',
   'peach',
   'plum',
   'russet',
@@ -59,11 +59,11 @@ $colores = [
   'sienna',
   'silver',
   'tan',
-  ' terra cotta',
+  'terra cotta',
   'topaz',
   'tortoiseshell',
   'turquoise',
-  ' food colouring',
+  'food colouring',
   'violet'
 ];
 
@@ -88,11 +88,11 @@ PRODUCTOS MÁS VENDIDOS
 
     <div class="row">
 
-      <div class="col-md-7">
+      <div class="col-md-12">
 
         <div class="chart-responsive">
 
-          <canvas id="pieChart" height="150"></canvas>
+          <canvas id="pieChart" height="150" width="250"></canvas>
 
         </div>
 
@@ -180,66 +180,157 @@ PRODUCTOS MÁS VENDIDOS
   // - PIE CHART -
   // -------------
   // Get context with jQuery - using jQuery's .get() method.
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+  // var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
 
-  var pieChart = new Chart(pieChartCanvas);
-  //console.log(pieChart);
-  var PieData = [
+  // var pieChart = new Chart(pieChartCanvas);
+  // //console.log(pieChart);
+  // var PieData = [
 
-    <?php
+  //   <?php
 
-    foreach ($productos as $key => $value) {
-
-
-      $votos = ControladorPuntero::ctrMostrarCantidadVotante($value["id_lider"]);
+  //   foreach ($productos as $key => $value) {
 
 
-
-      echo '
-                 {
-                    value    : ' . ceil(intval($votos[0]) * 100 / intval($total["total"])) . ',
-                    color    : "' . $colores[$key] . '",
-                    highlight: "' . $colores[$key] . '",
-                    label    : "% ' . $value["nombre"] . '"
-                  },
-
-              ';
-    }
+  //     $votos = ControladorPuntero::ctrMostrarCantidadVotante($value["id_lider"]);
 
 
-    ?>
-  ];
-  var pieOptions = {
-    // Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke: true,
-    // String - The colour of each segment stroke
-    segmentStrokeColor: '#fff',
-    // Number - The width of each segment stroke
-    segmentStrokeWidth: 1,
-    // Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout: 50, // This is 0 for Pie charts
-    // Number - Amount of animation steps
-    animationSteps: 100,
-    // String - Animation easing effect
-    animationEasing: 'easeOutBounce',
-    // Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate: true,
-    // Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale: false,
-    // Boolean - whether to make the chart responsive to window resizing
-    responsive: true,
-    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-    maintainAspectRatio: false,
-    // String - A legend template
-    legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<segments.length; i++){%><li><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>',
-    // String - A tooltip template
-    tooltipTemplate: '<%=value %> <%=label%>'
-  };
-  // Create pie or douhnut chart
-  // You can switch between pie and douhnut using the method below.
-  pieChart.Doughnut(PieData, pieOptions);
+
+  //     echo '
+  //                {
+  //                   value    : ' . ceil(intval($votos[0]) * 100 / intval($total["total"])) . ',
+  //                   color    : "' . $colores[$key] . '",
+  //                   highlight: "' . $colores[$key] . '",
+  //                   label    : "% ' . $value["nombre"] . '"
+  //                 },
+
+  //             ';
+  //   }
+
+
+  //   ?>
+  // ];
+  // var pieOptions = {
+  //   // Boolean - Whether we should show a stroke on each segment
+  //   segmentShowStroke: true,
+  //   // String - The colour of each segment stroke
+  //   segmentStrokeColor: '#fff',
+  //   // Number - The width of each segment stroke
+  //   segmentStrokeWidth: 1,
+  //   // Number - The percentage of the chart that we cut out of the middle
+  //   percentageInnerCutout: 50, // This is 0 for Pie charts
+  //   // Number - Amount of animation steps
+  //   animationSteps: 100,
+  //   // String - Animation easing effect
+  //   animationEasing: 'easeOutBounce',
+  //   // Boolean - Whether we animate the rotation of the Doughnut
+  //   animateRotate: true,
+  //   // Boolean - Whether we animate scaling the Doughnut from the centre
+  //   animateScale: false,
+  //   // Boolean - whether to make the chart responsive to window resizing
+  //   responsive: true,
+  //   // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+  //   maintainAspectRatio: false,
+  //   // String - A legend template
+  //   legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<segments.length; i++){%><li><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>',
+  //   // String - A tooltip template
+  //   tooltipTemplate: '<%=value %> <%=label%>'
+  // };
+  // // Create pie or douhnut chart
+  // // You can switch between pie and douhnut using the method below.
+  // pieChart.Doughnut(PieData, pieOptions);
 
   // -----------------
   // - END PIE CHART -
   // -----------------
+
+  $(document).ready(function(){
+
+    var ya_voto = [
+
+      <?php
+
+      foreach ($productos as $key => $value) {
+
+        $ya_voto = ModeloPuntero::mdlCantidadVotoPorPuntero("puntero", $value["id_lider"]);
+
+        echo '
+                  '.$ya_voto["total"] .',
+
+                ';
+        }
+
+
+      ?>
+    ];
+
+        var nombres = [
+
+          <?php
+
+          foreach ($productos as $key => $value) {
+
+
+            echo '
+                      "'.$value["nombre"].'",
+
+                    ';
+            }
+
+
+          ?>
+        ];
+        console.log(nombres);
+      var PieData = [
+
+        <?php
+
+        foreach ($productos as $key => $value) {
+
+
+          $votos = ControladorPuntero::ctrMostrarCantidadVotante($value["id_lider"]);
+
+
+
+          echo '
+                    '.$votos[0].',
+
+                  ';
+        }
+
+
+        ?>
+      ];
+      console.log(PieData);
+  // Obtiene el contexto del canvas
+      var ctx = $('#pieChart').get(0).getContext('2d');
+
+      // Crea el objeto Chart
+      var data = {
+        labels: nombres,
+        datasets: [
+          {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: PieData
+          },
+          {
+            label: "Ya voto",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: ya_voto
+          }
+        ]
+      };
+
+
+      new Chart(ctx).Bar(data, {
+        barShowStroke: false
+      });
+    });
+
 </script>
