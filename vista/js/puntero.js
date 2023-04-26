@@ -246,7 +246,7 @@ $(".tablas").on("click", ".btnActivarVeedor", function () {
   var datos = new FormData();
   datos.append("activarId", idVotante);
   datos.append("activarUsuarioVeedor", estadoVotante);
-  datos.append("columna", "activo_veedor");
+  datos.append("columna", "ya_pago");
 
   $.ajax({
     url: "ajax/puntero.ajax.php",
@@ -273,12 +273,12 @@ $(".tablas").on("click", ".btnActivarVeedor", function () {
   if (estadoVotante == 0) {
     $(this).removeClass("btn-success");
     $(this).addClass("btn-danger");
-    $(this).html("No paso");
+    $(this).html("No pago");
     $(this).attr("estadoVotante", 1);
   } else {
     $(this).addClass("btn-success");
     $(this).removeClass("btn-danger");
-    $(this).html("ya paso");
+    $(this).html("Ya pago");
     $(this).attr("estadoVotante", 0);
   }
 });

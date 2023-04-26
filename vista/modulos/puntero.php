@@ -82,6 +82,7 @@
                 <th>N° de orden</th>
                 <!-- <th>Estado veedor</th> -->
                 <th>Estado Voatación</th>
+                <th>Estado Pago</th>
                 <th>Acciones</th>
               </tr>
 
@@ -136,13 +137,13 @@
                           TRAEMOS EL ESTADO DE VOTACION VEEDOR
                           =============================================*/
 
-                // if ($value["activo_veedor"] != 0) {
+                if ($value["ya_pago"] != 0) {
 
-                //   $estado_veedor = "<td><button class='btn btn-success btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='0'>Si paso</button></td>";
-                // } else {
+                  $estado_pago = "<td><button class='btn btn-success btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='0'>Ya pago</button></td>";
+                } else {
 
-                //   $estado_veedor = "<td><button class='btn btn-danger btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='1'>No paso</button></td>";
-                // }
+                  $estado_pago = "<td><button class='btn btn-danger btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='1'>No pago</button></td>";
+                }
 
                 /*=============================================
                         TRAEMOS LAS ACCIONES
@@ -165,6 +166,7 @@
                                   <td>' . $value['numero_mesa'] . '</td>
                                   <td>' . $value['numero_orden'] . '</td>
                                   ' . $estado . '
+                                  ' . $estado_pago . '
                                   <td>' . $botones . '</td>
                             </tr>                           
                       ';
