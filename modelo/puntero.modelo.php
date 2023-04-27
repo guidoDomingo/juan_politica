@@ -31,7 +31,7 @@ class ModeloPuntero{
 					inner join personas as per
 					on pun.id_persona_puntero = per.id_persona  
 					order by id_puntero
-					limit 10
+					limit 2000
 				");
 
 			$stmt -> execute();
