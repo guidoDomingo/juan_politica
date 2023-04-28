@@ -30,8 +30,8 @@ class ModeloPuntero{
 					SELECT * FROM $tabla as pun
 					inner join personas as per
 					on pun.id_persona_puntero = per.id_persona  
-					order by id_puntero
-					limit 2000
+					order by id_puntero desc
+					limit 10
 				");
 
 			$stmt -> execute();
