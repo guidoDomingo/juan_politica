@@ -287,12 +287,12 @@
                     <hr>
                     <div class="pie-form">
                         <a href="#">UNCLICKSYSTEM</a>
-                        <a href="#">@Juancarlos</a>
+                        <a href="#">@tecnology</a>
                         <hr>
                         <a href="#">« Volver</a>
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
         
     </body>

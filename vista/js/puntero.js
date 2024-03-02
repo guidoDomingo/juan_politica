@@ -57,7 +57,7 @@ $(".tablas").on("click", ".btnEditarPuntero", function () {
     processData: false,
     dataType: "json",
     success: function (respuesta) {
-      //console.log("respuesta", respuesta);
+      console.log("respuesta", respuesta);
 
       var datos = new FormData();
       datos.append("idLider", respuesta["id_lider"]);
@@ -163,7 +163,7 @@ $("#validarCedulaPuntero").change(function () {
       } else {
         var datos_nuevo = new FormData();
         datos_nuevo.append("cedula_excel", cedula);
-
+        console.log("entrooo");
         $.ajax({
           url: "ajax/puntero.ajax.php",
           method: "POST",
@@ -175,12 +175,11 @@ $("#validarCedulaPuntero").change(function () {
           success: function (respuesta) {
             console.log(respuesta);
             $("#nuevoNombre").val(respuesta["nombre"]);
-            $("#nuevoApellido").val(respuesta["apellido"]);
-            $("#nuevoBarrio").val(respuesta["direccion"]);
-            $("#nuevoCiudad").val(respuesta["distrito"]);
-            $("#nuevoLugar").val(respuesta["local"]);
-            $("#nuevoNumeroMesa").val(respuesta["mesa"]);
-            $("#nuevoOrdenMesa").val(respuesta["mesaorden"]);
+            $("#nuevoApellido").val(respuesta["nombre"]);
+            $("#nuevoBarrio").val(respuesta["barrio"]);
+            $("#nuevoCiudad").val(respuesta["ciudad"]);
+            $("#nuevoTelefono").val(respuesta["telefono"]);
+            $("#nuevoLugar").val(respuesta["direccion"]);
           },
         });
       }
@@ -273,12 +272,12 @@ $(".tablas").on("click", ".btnActivarVeedor", function () {
   if (estadoVotante == 0) {
     $(this).removeClass("btn-success");
     $(this).addClass("btn-danger");
-    $(this).html("No pago");
+    $(this).html("NO");
     $(this).attr("estadoVotante", 1);
   } else {
     $(this).addClass("btn-success");
     $(this).removeClass("btn-danger");
-    $(this).html("Ya pago");
+    $(this).html("SI");
     $(this).attr("estadoVotante", 0);
   }
 });

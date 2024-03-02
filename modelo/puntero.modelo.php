@@ -1,5 +1,5 @@
 <?php
-
+//session_start();
 require_once "conexion.php";
 
 class ModeloPuntero{
@@ -8,7 +8,7 @@ class ModeloPuntero{
 	MOSTRAR PUNTEROS
 	=============================================*/
 
-	static public function mdlMostrarPunteros($tabla, $item, $valor){
+	static public function mdlMostrarPunteros($tabla, $item, $valor, $sede){
 
 		if($item != null){
 
@@ -16,9 +16,12 @@ class ModeloPuntero{
 				SELECT * FROM $tabla as pun
 				inner join personas as per
 				on pun.id_persona_puntero = per.id_persona  
-				WHERE $item = :$item");
+				inner join data_votantes as datav
+				on datav.cedula = per.cedula
+				WHERE per.id_persona = :$item and datav.sede = '$sede' ");
 
 			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
+			//$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
 
 			$stmt -> execute();
 
@@ -29,9 +32,12 @@ class ModeloPuntero{
 			$stmt = Conexion::conectar()->prepare("
 					SELECT * FROM $tabla as pun
 					inner join personas as per
-					on pun.id_persona_puntero = per.id_persona  
+					on pun.id_persona_puntero = per.id_persona
+					inner join data_votantes as datav
+					on datav.cedula = per.cedula
+					WHERE datav.sede = '$sede' 
 					order by id_puntero desc
-					limit 3000
+					limit 10
 				");
 
 			$stmt -> execute();
@@ -94,7 +100,7 @@ class ModeloPuntero{
 	Punteros unicos
 	=============================================*/
 
-	static public function mdlMostrarPunterosUnicos($tabla, $item, $valor){
+	static public function mdlMostrarPunterosUnicos($tabla, $item, $valor, $sede){
 
 		if($item != null){
 
@@ -103,8 +109,10 @@ class ModeloPuntero{
 				inner join lider as li
 				on pun.id_lider = li.id_lider
 				inner join personas as per 
-				on li.id_persona_lider = per.id_persona  
-				WHERE "."li."."$item = :$item");
+				on li.id_persona_lider = per.id_persona 
+				inner join data_votantes as datav
+				on datav.cedula = per.cedula  
+				WHERE "."li."."$item = :$item and datav.sede = '$sede' ");
 
 			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
 
@@ -119,7 +127,9 @@ class ModeloPuntero{
 				inner join lider as li
 				on pun.id_lider = li.id_lider
 				inner join personas as per 
-				on li.id_persona_lider = per.id_persona ");
+				on li.id_persona_lider = per.id_persona 
+				WHERE li.zona  = '$sede'
+				");
 
 			$stmt -> execute();
 
@@ -329,12 +339,14 @@ class ModeloPuntero{
 	SUMAR EL TOTAL de votantes
 	=============================================*/
 
-	static public function mdlSumaTotalVotante($tabla){	
+	static public function mdlSumaTotalVotante($tabla,$sede){	
 
-		$stmt = Conexion::conectar()->prepare("SELECT count(pun.activo) as total FROM $tabla as pun
-												inner join personas as per 
-												on pun.id_persona_puntero = per.id_persona 
-												where pun.activo = 1;");
+		$stmt = Conexion::conectar()->prepare("SELECT count(pun.activo) as total FROM puntero as pun
+		inner join personas as per 
+		on pun.id_persona_puntero = per.id_persona 
+		inner join data_votantes as datav
+		on datav.cedula = per.cedula
+		where pun.activo = 1 and datav.sede = '$sede' ");
 
 		$stmt -> execute();
 
@@ -350,14 +362,17 @@ class ModeloPuntero{
 	DATOS DE EXCEL
 	=============================================*/
 
-	static public function mdlDatosExcel($tabla,$item,$valor){	
+	static public function mdlDatosExcel($tabla,$item,$valor,$sede){	
+
+		
 
 		$stmt = Conexion::conectar()->prepare("
-			SELECT nombre,apellido,distrito,direccion,mesa,mesaorden,local FROM $tabla 
-			where $item = :cedula
+			SELECT * FROM $tabla 
+			where $item = :cedula and sede = :sede
 		");
 
 		$stmt -> bindParam(":cedula", $valor, PDO::PARAM_STR);
+		$stmt -> bindParam(":sede", $sede , PDO::PARAM_STR);
 
 		$stmt -> execute();
 
@@ -373,12 +388,14 @@ class ModeloPuntero{
 	personas que todavia no votaron
 	=============================================*/
 
-	static public function mdlTodaviaNoVotaron($tabla){	
+	static public function mdlTodaviaNoVotaron($tabla,$sede){	
 
-		$stmt = Conexion::conectar()->prepare("SELECT count(pun.activo) as total FROM $tabla as pun
-												inner join personas as per 
-												on pun.id_persona_puntero = per.id_persona 
-												where pun.activo = 0;");
+		$stmt = Conexion::conectar()->prepare("SELECT count(pun.activo) as total FROM puntero as pun
+								inner join personas as per 
+								on pun.id_persona_puntero = per.id_persona 
+								inner join data_votantes as datav
+								on datav.cedula = per.cedula
+								where pun.activo = 0 and datav.sede = '$sede' ");
 
 		$stmt -> execute();
 
@@ -394,12 +411,14 @@ class ModeloPuntero{
 	Nombre de votantes
 	=============================================*/
 
-	static public function mdlVotanteNombre($tabla){	
+	static public function mdlVotanteNombre($tabla,$sede){	
 
 		$stmt = Conexion::conectar()->prepare("SELECT per.nombre FROM $tabla as pun
 												inner join personas as per 
 												on pun.id_persona_puntero = per.id_persona 
-												where pun.activo = 1;");
+												inner join data_votantes as datav
+												on datav.cedula = per.cedula
+												where pun.activo = 1 and datav.sede = '$sede' ");
 
 		$stmt -> execute();
 
@@ -415,11 +434,14 @@ class ModeloPuntero{
 	SUMAR EL TOTAL posible votantes
 	=============================================*/
 
-	static public function mdlSumaTotalPosibleVotante($tabla){	
+	static public function mdlSumaTotalPosibleVotante($tabla,$sede){	
 
 		$stmt = Conexion::conectar()->prepare("SELECT count(pun.activo) as total FROM puntero as pun
 												inner join personas as per 
-												on pun.id_persona_puntero = per.id_persona ");
+												on pun.id_persona_puntero = per.id_persona
+												inner join data_votantes as datav
+												on datav.cedula = per.cedula
+												where datav.sede = '$sede' " );
 
 		$stmt -> execute();
 

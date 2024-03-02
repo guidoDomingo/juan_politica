@@ -10,9 +10,7 @@ class ControladorPuntero{
 
 		if(isset($_POST["nuevoNombre"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
-			   preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoApellido"]) &&
-			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoCedula"])){
+			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoCedula"])){
 
 			   	
 
@@ -20,17 +18,17 @@ class ControladorPuntero{
 
 
 				$datos = array("nombre" => $_POST["nuevoNombre"],
-					           "apellido" => $_POST["nuevoApellido"],
+					           "apellido" => $_POST["nuevoApellido"] ?? "",
 					           "ciudad" => $_POST["nuevoCiudad"],
 					           "barrio" => $_POST["nuevoBarrio"],
 					           "cedula" => intval($_POST["nuevoCedula"]),
 					           "id_lider" => intval($_POST["nuevoLider"]),
 					           "lugar_votacion" => $_POST["nuevoLugar"],
-					           "numero_orden" => $_POST["nuevoOrden"],
-					           "numero_mesa" => $_POST["nuevoNumeroMesa"],
+					           "numero_orden" => $_POST["nuevoOrden"] ?? "0",
+					           "numero_mesa" => $_POST["nuevoNumeroMesa"] ?? "0",
 					           "telefono"=> $_POST["nuevoTelefono"]);
 
-
+				//return var_dump($datos);
 				$respuesta = ModeloPuntero::mdlIngresarPuntero($tabla, $datos);
 
 			
@@ -94,11 +92,11 @@ class ControladorPuntero{
 	MOSTRAR PUNTERO
 	=============================================*/
 
-	static public function ctrMostrarPuntero($item, $valor){
+	static public function ctrMostrarPuntero($item, $valor,$sede){
 
 		$tabla = "puntero";
 
-		$respuesta = ModeloPuntero::mdlMostrarPunteros($tabla, $item, $valor);
+		$respuesta = ModeloPuntero::mdlMostrarPunteros($tabla, $item, $valor,$sede);
 
 		return $respuesta;
 	}
@@ -107,15 +105,14 @@ class ControladorPuntero{
 	Buscar PUNTERO
 	=============================================*/
 
-	static public function ctrBuscarPuntero($item, $valor){
+	static public function ctrBuscarPuntero($item, $valor, $sede){
 
 		if(isset($_POST['buscarVotante']) && !empty($_POST['buscarVotante'])){
 
 			$valor = $_POST['buscarVotante'];
 			$tabla = "puntero";
-
-			$respuesta = ModeloPuntero::mdlMostrarPunteros($tabla, $item, $valor);
-
+			
+			$respuesta = ModeloPuntero::mdlMostrarPunteros($tabla, $item, $valor, $sede);
 			return $respuesta;
 		}
 
@@ -125,11 +122,11 @@ class ControladorPuntero{
 	MOSTRAR DATOS DE EXCEL
 	=============================================*/
 
-	static public function ctrDatosExcel($item, $valor){
+	static public function ctrDatosExcel($item, $valor, $sede){
 
-		$tabla = "excel_cordillera_juan";
+		$tabla = "data_votantes";
 
-		$respuesta = ModeloPuntero::mdlDatosExcel($tabla, $item, $valor);
+		$respuesta = ModeloPuntero::mdlDatosExcel($tabla, $item, $valor,$sede);
 		return $respuesta;
 	}
 
@@ -150,11 +147,11 @@ class ControladorPuntero{
 	MOSTRAR PUNTERO UNICO
 	=============================================*/
 
-	static public function ctrMostrarPunterosUnicos($item, $valor){
+	static public function ctrMostrarPunterosUnicos($item, $valor, $sede){
 
 		$tabla = "puntero";
 
-		$respuesta = ModeloPuntero::mdlMostrarPunterosUnicos($tabla, $item, $valor);
+		$respuesta = ModeloPuntero::mdlMostrarPunterosUnicos($tabla, $item, $valor, $sede);
 
 		return $respuesta;
 	}
@@ -163,11 +160,11 @@ class ControladorPuntero{
 	MOSTRAR Votante total
 	=============================================*/
 
-	static public function ctrVotanteTotal(){
+	static public function ctrVotanteTotal($sede){
 
 		$tabla = "puntero";
 
-		$respuesta = ModeloPuntero::mdlSumaTotalVotante($tabla);
+		$respuesta = ModeloPuntero::mdlSumaTotalVotante($tabla,$sede);
 
 		return $respuesta;
 	}
@@ -176,11 +173,11 @@ class ControladorPuntero{
 	MOSTRAR Posible Votante total
 	=============================================*/
 
-	static public function ctrPosibleVotanteTotal(){
+	static public function ctrPosibleVotanteTotal($sede){
 
 		$tabla = "puntero";
 
-		$respuesta = ModeloPuntero::mdlSumaTotalPosibleVotante($tabla);
+		$respuesta = ModeloPuntero::mdlSumaTotalPosibleVotante($tabla,$sede);
 
 		return $respuesta;
 	}
@@ -189,11 +186,11 @@ class ControladorPuntero{
 	MOSTRAR nombre de los votantes
 	=============================================*/
 
-	static public function ctrVotanteNombres(){
+	static public function ctrVotanteNombres($sede){
 
 		$tabla = "puntero";
 
-		$respuesta = ModeloPuntero::mdlVotanteNombre($tabla);
+		$respuesta = ModeloPuntero::mdlVotanteNombre($tabla,$sede);
 
 		return $respuesta;
 	}
@@ -207,9 +204,7 @@ class ControladorPuntero{
 
 		if(isset($_POST["editarNombre"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"]) &&
-			   preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarApellido"]) &&
-			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarCedula"])){
+			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarCedula"])){
 
 			   	
 
@@ -217,15 +212,15 @@ class ControladorPuntero{
 
 
 				$datos = array("nombre" => $_POST["editarNombre"],
-					           "apellido" => $_POST["editarApellido"],
+					           "apellido" => $_POST["editarApellido"] ?? "",
 					           "ciudad" => $_POST["editarCiudad"],
 					           "barrio" => $_POST["editarBarrio"],
 					           "cedula" => intval($_POST["editarCedula"]),
 					           "id_lider" => intval($_POST["editarLider"]),
 					           "id_persona" => intval($_POST["idPersona"]),
-					           "lugar_votacion" => $_POST["editarLugar"],
-					           "numero_orden" => $_POST["editarOrden"],
-					           "numero_mesa" => $_POST["editarNumeroMesa"],
+					           "lugar_votacion" => $_POST["editarLugar"] ?? "",
+					           "numero_orden" => $_POST["editarOrden"] ?? "",
+					           "numero_mesa" => $_POST["editarNumeroMesa"] ?? "",
 					           "telefono"=> $_POST["editarTelefono"]);
 
 				//var_dump($datos);

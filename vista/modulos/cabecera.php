@@ -30,7 +30,7 @@
         
                             ?>
                                 
-                                <span class="hidden-xs">Usuario Administrador</span>
+                                <span class="hidden-xs">Usuario</span>
         
                             </a>
         

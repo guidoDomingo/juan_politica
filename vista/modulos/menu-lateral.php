@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="inicio" class="brand-link">
       <img src="vista/img/elecciones/elecciones.jfif" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Lista de Punteros</span>
+      <span class="brand-text font-weight-light">App Votos</span>
     </a>
 
     <!-- Sidebar -->
@@ -13,7 +13,7 @@
           <img src="vista/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Juan Carlos</a>
+          <a href="#" class="d-block">Cooperativa Ypacarai</a>
         </div>
       </div>
 
@@ -40,14 +40,24 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="lider" class="nav-link">
-              <i class="nav-icon fa fa-user"></i>
-              <p>
-                Puntero
-              </p>
-            </a>
-          </li>
+
+          <?php
+
+        if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "pc") {
+           echo '<li class="nav-item">
+                  <a href="lider" class="nav-link">
+                    <i class="nav-icon fa fa-user"></i>
+                    <p>
+                      Puntero
+                    </p>
+                  </a>
+                </li>';
+
+        }
+
+        ?>
+
+
             <!-- <li class="nav-item">
             <a href="voto-sin-puntero" class="nav-link">
               <i class="nav-icon fa fa-user"></i>

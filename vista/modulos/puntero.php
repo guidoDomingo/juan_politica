@@ -24,12 +24,15 @@
 
       <div class="d-flex justify-content-between">
         <div class="box-header with-border mb-2">
+          <?php if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "pc") { ?>
 
-          <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarPuntero">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarPuntero">
 
-            Agregar votante
+              Agregar votante
 
-          </button>
+            </button>
+
+          <?php } ?>
 
         </div>
         <div class="box-header with-border mr-5">
@@ -44,12 +47,13 @@
 
             <?php
 
-              $item = "cedula";
-              $valor = null;
+            $item = "cedula";
+            $valor = null;
+            $sede = $_SESSION["sede"];
 
-              $votante_buscado = ControladorPuntero::ctrBuscarPuntero($item, $valor);
+            $votante_buscado = ControladorPuntero::ctrBuscarPuntero($item, $valor, $sede);
 
-              //var_dump($punteros);
+            //var_dump($punteros);
 
             ?>
 
@@ -77,12 +81,16 @@
                 <th>cedula</th>
                 <th>barrio</th>
                 <th>telefono</th>
-                <th>lugar votación</th>
-                <th>N° de mesa</th>
-                <th>N° de orden</th>
+                <th>dirección</th>
+                <!-- <th>N° de mesa</th>
+                <th>N° de orden</th> -->
                 <!-- <th>Estado veedor</th> -->
-                <th>Estado Voatación</th>
-                <th>Estado Pago</th>
+                <?php if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "vd") { ?>
+                  <th>Estado Voatación</th>
+                <?php } ?>
+                <?php if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "pc") { ?>
+                  <th>Estado PC</th>
+                <?php } ?>
                 <th>Acciones</th>
               </tr>
 
@@ -93,16 +101,15 @@
               <?php
 
 
-              if(!empty($votante_buscado)){
+              if (!empty($votante_buscado)) {
                 $lista = array($votante_buscado);
                 $punteros = $lista;
-
-              }else{
+              } else {
 
                 $item = null;
                 $valor = null;
-                $punteros = ControladorPuntero::ctrMostrarPuntero($item, $valor);
-
+                $sede = $_SESSION["sede"];
+                $punteros = ControladorPuntero::ctrMostrarPuntero($item, $valor,$sede);
               }
 
               //return var_dump($punteros);
@@ -139,10 +146,10 @@
 
                 if ($value["ya_pago"] != 0) {
 
-                  $estado_pago = "<td><button class='btn btn-success btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='0'>Ya pago</button></td>";
+                  $estado_pago = "<td><button class='btn btn-success btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='0'>SI</button></td>";
                 } else {
 
-                  $estado_pago = "<td><button class='btn btn-danger btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='1'>No pago</button></td>";
+                  $estado_pago = "<td><button class='btn btn-danger btn-xs btnActivarVeedor' idVotante='" . $value["id_puntero"] . "' estadoVotante='1'>NO</button></td>";
                 }
 
                 /*=============================================
@@ -151,25 +158,59 @@
 
                 $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarPuntero' idPuntero='" . $value['id_persona'] . "' data-toggle='modal' data-target='#modalEditarPuntero'><i class='fa fa-pencil-alt'></i></button><button class='btn btn-danger btnEliminarPuntero' idPuntero='" . $value['id_puntero'] . "'><i class='fa fa-times'></i></button></div>";
 
+                if ($_SESSION["perfil"] == "vd") {
 
-                echo '
-                             <tr>
-                                  <td>' . ($key + 1) . '</td> 
-                                  <td>' . $punteros_lideres['nombre'] . ' ' . $punteros_lideres['apellido'] . '</td>
-                                  <td>' . $punteros_lideres['cedula'] . '</td>
-                                  <td>' . $punteros_lideres['zona'] . '</td>
-                                  <td>' . $value['nombre'] . '</td>
-                                  <td>' . $value['cedula'] . '</td>
-                                  <td>' . $value['barrio'] . '</td>
-                                  <td>' . $value['telefono'] . '</td>
-                                  <td>' . $value['lugar_votacion'] . '</td>
-                                  <td>' . $value['numero_mesa'] . '</td>
-                                  <td>' . $value['numero_orden'] . '</td>
-                                  ' . $estado . '
-                                  ' . $estado_pago . '
-                                  <td>' . $botones . '</td>
-                            </tr>                           
-                      ';
+                  echo '
+                            <tr>
+                                <td>' . ($key + 1) . '</td> 
+                                <td>' . $punteros_lideres['nombre'] . ' ' . $punteros_lideres['apellido'] . '</td>
+                                <td>' . $punteros_lideres['cedula'] . '</td>
+                                <td>' . $punteros_lideres['zona'] . '</td>
+                                <td>' . $value['nombre'] . '</td>
+                                <td>' . $value['cedula'] . '</td>
+                                <td>' . $value['barrio'] . '</td>
+                                <td>' . $value['telefono'] . '</td>
+                                <td>' . $value['lugar_votacion'] . '</td>
+                                ' . $estado . '
+                                <td>' . $botones . '</td>
+                          </tr>                           
+                        ';
+                } else if ($_SESSION["perfil"] == "pc") {
+
+                  echo '
+                        <tr>
+                            <td>' . ($key + 1) . '</td> 
+                            <td>' . $punteros_lideres['nombre'] . ' ' . $punteros_lideres['apellido'] . '</td>
+                            <td>' . $punteros_lideres['cedula'] . '</td>
+                            <td>' . $punteros_lideres['zona'] . '</td>
+                            <td>' . $value['nombre'] . '</td>
+                            <td>' . $value['cedula'] . '</td>
+                            <td>' . $value['barrio'] . '</td>
+                            <td>' . $value['telefono'] . '</td>
+                            <td>' . $value['lugar_votacion'] . '</td>
+                            ' . $estado_pago . '
+                            <td>' . $botones . '</td>
+                      </tr>                           
+                    ';
+                } else {
+
+                  echo '
+                  <tr>
+                       <td>' . ($key + 1) . '</td> 
+                       <td>' . $punteros_lideres['nombre'] . ' ' . $punteros_lideres['apellido'] . '</td>
+                       <td>' . $punteros_lideres['cedula'] . '</td>
+                       <td>' . $punteros_lideres['zona'] . '</td>
+                       <td>' . $value['nombre'] . '</td>
+                       <td>' . $value['cedula'] . '</td>
+                       <td>' . $value['barrio'] . '</td>
+                       <td>' . $value['telefono'] . '</td>
+                       <td>' . $value['lugar_votacion'] . '</td>
+                       ' . $estado . '
+                       ' . $estado_pago . '
+                       <td>' . $botones . '</td>
+                 </tr>                           
+           ';
+                }
               }
 
               ?>
@@ -298,7 +339,7 @@ MODAL AGREGAR USUARIO
 
                 <!-- ENTRADA PARA EL Apellido -->
 
-                <div class="form-group">
+                <!-- <div class="form-group">
 
                   <div class="input-group">
 
@@ -310,7 +351,7 @@ MODAL AGREGAR USUARIO
 
                   </div>
 
-                </div>
+                </div> -->
 
                 <!-- ENTRADA PARA LA ciudad -->
 
@@ -377,7 +418,7 @@ MODAL AGREGAR USUARIO
                       <i class="fa fa-pencil-alt"></i>
                     </button>
 
-                    <input type="text" class="form-control input-lg" id="nuevoLugar" name="nuevoLugar" placeholder="Ingresar lugar de votacion">
+                    <input type="text" class="form-control input-lg" id="nuevoLugar" name="nuevoLugar" placeholder="direccion">
 
                   </div>
 
@@ -385,7 +426,7 @@ MODAL AGREGAR USUARIO
 
                 <!-- ENTRADA PARA NUMERO DE MESA -->
 
-                <div class="form-group">
+                <!-- <div class="form-group">
 
                   <div class="input-group">
 
@@ -397,11 +438,11 @@ MODAL AGREGAR USUARIO
 
                   </div>
 
-                </div>
+                </div> -->
 
                 <!-- ENTRADA PARA NUMERO DE ORDEN -->
 
-                <div class="form-group">
+                <!-- <div class="form-group">
 
                   <div class="input-group">
 
@@ -413,7 +454,7 @@ MODAL AGREGAR USUARIO
 
                   </div>
 
-                </div>
+                </div> -->
 
 
               </div>
@@ -568,7 +609,7 @@ MODAL EDITAR USUARIO
 
                 <!-- ENTRADA PARA EL Apellido -->
 
-                <div class="form-group">
+                <!-- <div class="form-group">
 
                   <div class="input-group">
 
@@ -580,7 +621,7 @@ MODAL EDITAR USUARIO
 
                   </div>
 
-                </div>
+                </div> -->
 
                 <!-- ENTRADA PARA LA ciudad -->
 
@@ -655,7 +696,7 @@ MODAL EDITAR USUARIO
 
                 <!-- ENTRADA PARA NUMERO DE MESA -->
 
-                <div class="form-group">
+                <!-- <div class="form-group">
 
                   <div class="input-group">
 
@@ -667,11 +708,11 @@ MODAL EDITAR USUARIO
 
                   </div>
 
-                </div>
+                </div> -->
 
                 <!-- ENTRADA PARA NUMERO DE ORDEN -->
 
-                <div class="form-group">
+                <!-- <div class="form-group">
 
                   <div class="input-group">
 
@@ -683,7 +724,7 @@ MODAL EDITAR USUARIO
 
                   </div>
 
-                </div>
+                </div> -->
 
 
               </div>

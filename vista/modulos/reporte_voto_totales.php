@@ -1,27 +1,72 @@
-<?php
 
-$item = null;
-$valor = null;
-
-
-$votantes = ControladorPuntero::ctrVotanteNombres();
-
-$colores = array("red","green","yellow","aqua","purple","blue","cyan","magenta","orange","gold");
-//voto total
-$total = ControladorPuntero::ctrPosibleVotanteTotal();
-
-$votosTotales = ControladorPuntero::ctrVotanteTotal();
-
-$faltaVotar = ModeloPuntero::mdlTodaviaNoVotaron("puntero");
-
-
-?>
 
 <!--=====================================
 PRODUCTOS MÁS VENDIDOS
 ======================================-->
 
 <div class="box box-default">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div id="sedes_select_div" class="form-group">
+                <form action="" method="POST">
+                    <select id="sedes_select" class="form-control" name="sede">
+                        <option selected value="caacupe" <?php if(isset($_POST['sede']) && $_POST['sede'] == 'caacupe') echo 'selected'; ?>>Caacupé</option>
+                        <option value="loma_grande" <?php if(isset($_POST['sede']) && $_POST['sede'] == 'loma_grande') echo 'selected'; ?>>Loma Grande</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
+                    <input type="submit" class="btn btn-primary" value="Enviar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+  <?php
+
+    if(isset($_POST['sede'])) {
+
+      $item = null;
+      $valor = null;
+      $sede = $_POST['sede'];
+      //return var_dump($sede);
+      $votantes = ControladorPuntero::ctrVotanteNombres($sede);
+  
+      $colores = array("red","green","yellow","aqua","purple","blue","cyan","magenta","orange","gold");
+      //voto total
+      $total = ControladorPuntero::ctrPosibleVotanteTotal($sede);
+
+      $votosTotales = ControladorPuntero::ctrVotanteTotal($sede);
+
+     
+
+
+      $faltaVotar = ModeloPuntero::mdlTodaviaNoVotaron("puntero",$sede);
+
+    }else{
+
+      $votantes = ['total' => 0];
+  
+      $colores = array("red","green","yellow","aqua","purple","blue","cyan","magenta","orange","gold");
+      //voto total
+      $total = ['total' => 0];;
+
+      $votosTotales = ['total' => 0];;
+
+     
+
+
+      $faltaVotar = ['total' => 0];;
+    }
+
+
+?>
+
+
 	
 	<div class="box-header with-border">
   
@@ -160,7 +205,7 @@ PRODUCTOS MÁS VENDIDOS
 
           for($i = 0; $i < 1; $i++){
 
-              $votos = ControladorPuntero::ctrVotanteTotal();
+              $votos = ControladorPuntero::ctrVotanteTotal($sede);
              
 
               echo '

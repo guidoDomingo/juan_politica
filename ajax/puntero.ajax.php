@@ -2,7 +2,7 @@
 
 require_once "../controlador/puntero.controlador.php";
 require_once "../modelo/puntero.modelo.php";
-
+session_start();
 class AjaxPuntero{
 
 	/*=============================================
@@ -15,7 +15,8 @@ class AjaxPuntero{
 
 		$item = "id_persona";
 		$valor = $this->idPuntero;
-		$respuesta = ControladorPuntero::ctrMostrarPuntero($item, $valor);
+		$sede = $_SESSION["sede"];
+		$respuesta = ControladorPuntero::ctrMostrarPuntero($item, $valor,$sede);
 
 		echo json_encode($respuesta);
 
@@ -48,8 +49,8 @@ class AjaxPuntero{
 
 		$item = "cedula";
 		$valor = $this->validarPuntero;
-
-		$respuesta = ControladorPuntero::ctrMostrarPuntero($item, $valor);
+		$sede = $_SESSION["sede"];
+		$respuesta = ControladorPuntero::ctrMostrarPuntero($item, $valor,$sede);
 
 		echo json_encode($respuesta);
 
@@ -92,8 +93,9 @@ class AjaxPuntero{
 
 		$item = "cedula";
 		$valor = $this->cedula_excel;
+		$sede = $_SESSION["sede"];
 
-		$respuesta = ControladorPuntero::ctrDatosExcel($item, $valor);
+		$respuesta = ControladorPuntero::ctrDatosExcel($item, $valor,$sede);
 
 		echo json_encode($respuesta);
 
