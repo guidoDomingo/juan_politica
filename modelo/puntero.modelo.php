@@ -18,7 +18,7 @@ class ModeloPuntero{
 				on pun.id_persona_puntero = per.id_persona  
 				inner join data_votantes as datav
 				on datav.cedula = per.cedula
-				WHERE per.id_persona = :$item and datav.sede = '$sede' ");
+				WHERE per.cedula = :$item and datav.sede = '$sede' ");
 
 			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
 			//$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
