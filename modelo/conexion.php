@@ -4,9 +4,9 @@ class Conexion{
 
 	static public function conectar(){
 
-		$link = new PDO("pgsql:host=localhost;dbname=politica_juanca",
+		$link = new PDO("pgsql:host=localhost;dbname=votos",
 			            "postgres",
-			            "admin");
+			            '$guido123');
 
 		$link->exec("set names utf8");
 
