@@ -164,9 +164,10 @@ PRODUCTOS MÁS VENDIDOS
       <thead>
         <tr>
           <th>Puntero</th>
-          <th>Votos</th>
-          <th>Porcentaje</th>
           <th>Votantes</th>
+          <th>Paso por pc</th>
+          <!-- <th>Porcentaje</th> -->
+          <th>Votos</th>
           <th>Ya Votaron</th>
         </tr>
       </thead>
@@ -175,12 +176,14 @@ PRODUCTOS MÁS VENDIDOS
         foreach ($productos as $key => $value) {
           $votos = ControladorPuntero::ctrMostrarCantidadVotante($value["id_lider"]);
           $ya_voto = ModeloPuntero::mdlCantidadVotoPorPuntero("puntero", $value["id_lider"]);
+          $ya_paso_pc = ModeloPuntero::mdlCantidadPcPorPuntero("puntero", $value["id_lider"]);
           $porcentaje = ceil(intval($votos[0]) * 100 / intval($total["total"]));
 
           echo '<tr>';
           echo '<td>' . $value["nombre"] . '</td>';
           echo '<td>' . $votos[0] . '</td>';
-          echo '<td>' . $porcentaje . '%</td>';
+          echo '<td>' . $ya_paso_pc["total"] . '</td>';
+          // echo '<td>' . $porcentaje . '%</td>';
           echo '<td>';
           echo '<span class="bg-' . (($ya_voto["total"] == 0) ? 'red' : (($ya_voto["total"] == $votos[0]) ? 'green' : 'yellow')) . ' text-white votoPuntero p-2">' . $ya_voto["total"] . '</span>';
           echo '</td>';

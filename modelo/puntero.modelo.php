@@ -13,11 +13,28 @@ class ModeloPuntero{
 		if($item != null){
 
 			$stmt = Conexion::conectar()->prepare("
-				SELECT * FROM $tabla as pun
-				inner join personas as per
-				on pun.id_persona_puntero = per.id_persona  
-				inner join data_votantes as datav
-				on datav.cedula = per.cedula
+				SELECT pun.*, per.*, 
+				(
+					SELECT per.nombre FROM personas per inner join lider l 
+						on per.id_persona = l.id_persona_lider 
+					WHERE l.id_lider  = pun.id_lider
+				) as nombre_lider, 
+				(
+					SELECT per.apellido  FROM personas per inner join lider l 
+						on per.id_persona = l.id_persona_lider 
+					WHERE l.id_lider  = pun.id_lider
+				) as apellido_lider,
+				(
+					SELECT per.cedula  FROM personas per inner join lider l 
+						on per.id_persona = l.id_persona_lider 
+					WHERE l.id_lider  = pun.id_lider
+				) as cedula_lider,
+				(
+					SELECT zona FROM lider WHERE id_lider = pun.id_lider
+				) as zona_lider
+				FROM puntero  as pun
+				INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
+				INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
 				WHERE per.cedula = :$item and datav.sede = '$sede' ");
 
 			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
@@ -29,16 +46,73 @@ class ModeloPuntero{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("
-					SELECT * FROM $tabla as pun
-					inner join personas as per
-					on pun.id_persona_puntero = per.id_persona
-					inner join data_votantes as datav
-					on datav.cedula = per.cedula
-					WHERE datav.sede = '$sede' 
-					order by id_puntero desc
-					limit 10
+			if ($_SESSION["perfil"] == "Administrador") {
+				// $stmt = Conexion::conectar()->prepare("
+				// 	SELECT pun.*,per.* FROM $tabla as pun
+				// 	inner join personas as per
+				// 	on pun.id_persona_puntero = per.id_persona
+				// 	inner join data_votantes as datav
+				// 	on datav.cedula = per.cedula
+				// 	WHERE datav.sede = '$sede' 
+				// ");
+
+				$stmt = Conexion::conectar()->prepare("
+					SELECT pun.*, per.*, 
+					(
+						SELECT per.nombre FROM personas per inner join lider l 
+							on per.id_persona = l.id_persona_lider 
+						WHERE l.id_lider  = pun.id_lider
+					) as nombre_lider, 
+					(
+						SELECT per.apellido  FROM personas per inner join lider l 
+							on per.id_persona = l.id_persona_lider 
+						WHERE l.id_lider  = pun.id_lider
+					) as apellido_lider,
+					(
+						SELECT per.cedula  FROM personas per inner join lider l 
+							on per.id_persona = l.id_persona_lider 
+						WHERE l.id_lider  = pun.id_lider
+					) as cedula_lider,
+					(
+						SELECT zona FROM lider WHERE id_lider = pun.id_lider
+					) as zona_lider
+					FROM puntero  as pun
+					INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
+					INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
+		
 				");
+
+
+			}else{
+
+				$stmt = Conexion::conectar()->prepare("
+						SELECT pun.*, per.*, 
+						(
+							SELECT per.nombre FROM personas per inner join lider l 
+								on per.id_persona = l.id_persona_lider 
+							WHERE l.id_lider  = pun.id_lider
+						) as nombre_lider, 
+						(
+							SELECT per.apellido  FROM personas per inner join lider l 
+								on per.id_persona = l.id_persona_lider 
+							WHERE l.id_lider  = pun.id_lider
+						) as apellido_lider,
+						(
+							SELECT per.cedula  FROM personas per inner join lider l 
+								on per.id_persona = l.id_persona_lider 
+							WHERE l.id_lider  = pun.id_lider
+						) as cedula_lider,
+						(
+							SELECT zona FROM lider WHERE id_lider = pun.id_lider
+						) as zona_lider
+						FROM puntero  as pun
+						INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
+						INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
+						WHERE datav.sede = '$sede' 
+						order by id_puntero desc
+						limit 10
+					");
+			}
 
 			$stmt -> execute();
 
@@ -463,6 +537,28 @@ class ModeloPuntero{
 											inner join personas as per 
 											on pun.id_persona_puntero = per.id_persona 
 											where pun.activo = 1 and pun.id_lider = :id ");
+
+		$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
+
+		$stmt -> execute();
+
+		return $stmt -> fetch();
+
+		
+
+		$stmt = null;
+
+	}
+	/*=============================================
+	cantidad que ya votaron por puntero
+	=============================================*/
+
+	static public function mdlCantidadPcPorPuntero($tabla,$id){	
+
+		$stmt = Conexion::conectar()->prepare("SELECT count(pun.ya_pago) as total FROM $tabla as pun
+											inner join personas as per 
+											on pun.id_persona_puntero = per.id_persona 
+											where pun.ya_pago = 1 and pun.id_lider = :id ");
 
 		$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
 

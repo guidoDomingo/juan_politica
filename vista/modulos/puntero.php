@@ -123,9 +123,13 @@
                 $item = "id_lider";
                 $valor = $value["id_lider"];
                 //return var_dump($valor);
-                $punteros_lideres = ControladorPuntero::ctrMostrarPunterosLideres($item, $valor);
+                //$punteros_lideres = ControladorPuntero::ctrMostrarPunterosLideres($item, $valor);
                 //return var_dump($punteros_lideres["zona"]);
 
+                $nombre_lider = $value['nombre_lider'];
+                $apellido_lider = $value['apellido_lider'];
+                $cedula_lider = $value['cedula_lider'];
+                $zona_lider = $value['zona_lider'];
 
                 /*=============================================
                           TRAEMOS EL ESTADO DE VOTACION
@@ -163,9 +167,9 @@
                   echo '
                             <tr>
                                 <td>' . ($key + 1) . '</td> 
-                                <td>' . $punteros_lideres['nombre'] . ' ' . $punteros_lideres['apellido'] . '</td>
-                                <td>' . $punteros_lideres['cedula'] . '</td>
-                                <td>' . $punteros_lideres['zona'] . '</td>
+                                <td>' . $nombre_lider . ' ' . $apellido_lider . '</td>
+                                <td>' . $cedula_lider . '</td>
+                                <td>' . $zona_lider . '</td>
                                 <td>' . $value['nombre'] . '</td>
                                 <td>' . $value['cedula'] . '</td>
                                 <td>' . $value['barrio'] . '</td>
@@ -180,9 +184,9 @@
                   echo '
                         <tr>
                             <td>' . ($key + 1) . '</td> 
-                            <td>' . $punteros_lideres['nombre'] . ' ' . $punteros_lideres['apellido'] . '</td>
-                            <td>' . $punteros_lideres['cedula'] . '</td>
-                            <td>' . $punteros_lideres['zona'] . '</td>
+                            <td>' . $nombre_lider . ' ' . $apellido_lider . '</td>
+                            <td>' . $cedula_lider . '</td>
+                            <td>' . $zona_lider . '</td>
                             <td>' . $value['nombre'] . '</td>
                             <td>' . $value['cedula'] . '</td>
                             <td>' . $value['barrio'] . '</td>
@@ -196,10 +200,10 @@
 
                   echo '
                   <tr>
-                       <td>' . ($key + 1) . '</td> 
-                       <td>' . $punteros_lideres['nombre'] . ' ' . $punteros_lideres['apellido'] . '</td>
-                       <td>' . $punteros_lideres['cedula'] . '</td>
-                       <td>' . $punteros_lideres['zona'] . '</td>
+                      <td>' . ($key + 1) . '</td> 
+                      <td>' . $nombre_lider . ' ' . $apellido_lider . '</td>
+                      <td>' . $cedula_lider . '</td>
+                      <td>' . $zona_lider . '</td>
                        <td>' . $value['nombre'] . '</td>
                        <td>' . $value['cedula'] . '</td>
                        <td>' . $value['barrio'] . '</td>
