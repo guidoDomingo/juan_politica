@@ -1,4 +1,3 @@
-
 <?php
 
 session_start();
@@ -7,6 +6,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <meta charset="utf-8">
@@ -20,11 +20,11 @@ session_start();
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
-     <!--=====================================
+  <!--=====================================
   PLUGINS DE CSS
   ======================================-->
 
- 
+
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="vista/plugins/fontawesome-free/css/all.min.css">
@@ -37,11 +37,11 @@ session_start();
 
   <link rel="stylesheet" href="vista/css/estilos.css">
 
-    <!-- DataTables -->
+  <!-- DataTables -->
   <link rel="stylesheet" href="vista/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="vista/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="vista/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  
+
   <!-- PLUGINS DE JS -->
 
   <!-- jQuery -->
@@ -85,79 +85,78 @@ session_start();
 
 <body class="hold-transition sidebar-collapse sidebar-mini">
 
- 
+
   <!-- MODULO DE LA CABECERA -->
   <?php
+  var_dump($_SESSION["iniciarSesion"]);
+  var_dump($_GET["ruta"]);
   
-    if( isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok" ){
+  if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 
     echo '<div class="wrapper">';
-    
+
     include 'modulos/cabecera.php';
 
     include 'modulos/menu-lateral.php';
 
 
-     /*=============================================
+    /*=============================================
     CONTENIDO
     =============================================*/
 
-    if(isset($_GET["ruta"])){
+    if (isset($_GET["ruta"])) {
 
-      if($_GET["ruta"] == "inicio" ||
-         $_GET["ruta"] == "usuarios" ||
-         $_GET["ruta"] == "puntero" ||
-         $_GET["ruta"] == "lider" ||
-         $_GET["ruta"] == "voto-sin-puntero" ||
-         $_GET["ruta"] == "cajas-superiores" ||
-         $_GET["ruta"] == "reportes" ||
-         $_GET["ruta"] == "salir"){
+      if (
+        $_GET["ruta"] == "inicio" ||
+        $_GET["ruta"] == "usuarios" ||
+        $_GET["ruta"] == "puntero" ||
+        $_GET["ruta"] == "lider" ||
+        $_GET["ruta"] == "voto-sin-puntero" ||
+        $_GET["ruta"] == "cajas-superiores" ||
+        $_GET["ruta"] == "reportes" ||
+        $_GET["ruta"] == "salir"
+      ) {
 
-        include "modulos/".$_GET["ruta"].".php";
-
-      }else{
+        include "modulos/" . $_GET["ruta"] . ".php";
+      } else {
 
         include "modulos/404.php";
-
       }
-
-    }else{
+    } else {
 
       include "modulos/inicio.php";
-
     }
 
-    
-     /*=============================================
+
+    /*=============================================
     FOOTER
     =============================================*/
 
     include "modulos/footer.php";
 
     echo '</div>';
+  } else {
 
-    }else{
+    include "modulos/login.php";
+  }
 
-        include "modulos/login.php";
-
-    }
-    
   ?>
   <!-- Main Sidebar Container -->
- 
-
-<!-- ./wrapper -->
 
 
-<!-- <script src="vista/js/usuarios.js"></script>
+  <!-- ./wrapper -->
+
+
+  <!-- <script src="vista/js/usuarios.js"></script>
 <script src="vista/js/categoria.js"></script>
 <script src="vista/js/proveedor.js"></script>
 <script src="vista/js/equipo.js"></script>
 <script src="vista/js/planta.js"></script>-->
-<script src="vista/js/lider.js"></script> 
-<script src="vista/js/puntero.js"></script>
-<script src="vista/js/votante.js"></script>
-<script src="vista/js/plantilla.js"></script>
+  <script src="vista/js/lider.js"></script>
+  <script src="vista/js/puntero.js"></script>
+  <script src="vista/js/votante.js"></script>
+  <script src="vista/js/plantilla.js"></script>
 </body>
 </body>
+
 </html>
