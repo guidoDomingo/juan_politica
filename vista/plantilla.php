@@ -88,9 +88,9 @@ session_start();
 
   <!-- MODULO DE LA CABECERA -->
   <?php
-  var_dump($_SESSION["iniciarSesion"]);
-  var_dump($_GET["ruta"]);
-  
+  // var_dump($_SESSION["iniciarSesion"]);
+  // var_dump($_GET["ruta"]);
+
   if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 
     echo '<div class="wrapper">';
@@ -107,17 +107,17 @@ session_start();
     if (isset($_GET["ruta"])) {
 
       if (
-        $_GET["ruta"] == "inicio" ||
-        $_GET["ruta"] == "usuarios" ||
-        $_GET["ruta"] == "puntero" ||
-        $_GET["ruta"] == "lider" ||
-        $_GET["ruta"] == "voto-sin-puntero" ||
-        $_GET["ruta"] == "cajas-superiores" ||
-        $_GET["ruta"] == "reportes" ||
-        $_GET["ruta"] == "salir"
+        $_GET["ruta"] == "/inicio" ||
+        $_GET["ruta"] == "/usuarios" ||
+        $_GET["ruta"] == "/puntero" ||
+        $_GET["ruta"] == "/lider" ||
+        $_GET["ruta"] == "/voto-sin-puntero" ||
+        $_GET["ruta"] == "/cajas-superiores" ||
+        $_GET["ruta"] == "/reportes" ||
+        $_GET["ruta"] == "/salir"
       ) {
 
-        include "modulos/" . $_GET["ruta"] . ".php";
+        include "modulos" . $_GET["ruta"] . ".php";
       } else {
 
         include "modulos/404.php";
