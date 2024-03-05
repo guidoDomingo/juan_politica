@@ -12,8 +12,9 @@ PRODUCTOS MÁS VENDIDOS
             <div id="sedes_select_div" class="form-group">
                 <form action="" method="POST">
                     <select id="sedes_select" class="form-control" name="sede">
-                        <option selected value="caacupe" <?php if(isset($_POST['sede']) && $_POST['sede'] == 'caacupe') echo 'selected'; ?>>Caacupé</option>
-                        <option value="loma_grande" <?php if(isset($_POST['sede']) && $_POST['sede'] == 'loma_grande') echo 'selected'; ?>>Loma Grande</option>
+                        <option selected value="ypa_itaugua" <?php if(isset($_POST['sede']) && $_POST['sede'] == 'ypa_itaugua') echo 'selected'; ?>>Votos en Itaugua</option>
+                        <option value="ypa_24_mayo" <?php if(isset($_POST['sede']) && $_POST['sede'] == 'ypa_24_mayo') echo 'selected'; ?>>Votos casa central( 24 de mayo)</option>
+                        <option value="ypa_hugua_hu" <?php if(isset($_POST['sede']) && $_POST['sede'] == 'ypa_hugua_hu') echo 'selected'; ?>>Votos hugua hu</option>
                         <!-- Agrega más opciones según sea necesario -->
                     </select>
                     <input type="submit" class="btn btn-primary" value="Enviar">
