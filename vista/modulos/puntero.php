@@ -288,9 +288,10 @@ MODAL AGREGAR USUARIO
 
                       $item = null;
                       $valor = null;
-
+                      $sede = $_SESSION["sede"];
+                      
                       $punteros = ControladorLider::ctrMostrarLideres($item, $valor);
-
+                      
                       foreach ($punteros as $key => $value) {
 
                         echo '

@@ -34,8 +34,10 @@ class ModeloPuntero{
 				) as zona_lider
 				FROM puntero  as pun
 				INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
-				INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
-				WHERE per.cedula = :$item and datav.sede = '$sede' ");
+				WHERE per.cedula = :$item  ");
+
+			//INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
+				//WHERE per.cedula = :$item and datav.sede = '$sede' ");
 
 			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
 			//$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
@@ -79,7 +81,7 @@ class ModeloPuntero{
 					FROM puntero  as pun
 					INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
 					INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
-		
+					limit 10
 				");
 
 
@@ -578,8 +580,12 @@ class ModeloPuntero{
 
 	static public function mdlCantidadVotante($tabla,$id){	
 
-		$stmt = Conexion::conectar()->prepare(" SELECT count(id_lider) 
-  												from $tabla
+		$stmt = Conexion::conectar()->prepare(" SELECT count(p.id_lider) 
+  												from $tabla p
+												inner join personas p2 
+												on p2.id_persona = p.id_persona_puntero 
+												inner join data_votantes dv 
+												on dv.cedula = p2.cedula
   												where id_lider = :id;");
 
 		$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
