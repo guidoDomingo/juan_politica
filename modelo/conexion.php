@@ -4,7 +4,7 @@ class Conexion{
 
 	static public function conectar(){
 
-		$link = new PDO("pgsql:host=localhost;dbname=votos",
+		$link = new PDO("pgsql:host=localhost;dbname=politica_juanca",
 			            "postgres",
 			            '$guido123');
 
