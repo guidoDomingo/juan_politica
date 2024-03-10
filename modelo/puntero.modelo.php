@@ -81,7 +81,7 @@ class ModeloPuntero{
 					FROM puntero  as pun
 					INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
 					INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
-					limit 10
+					
 				");
 
 
