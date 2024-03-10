@@ -82,7 +82,7 @@ class ModeloPuntero{
 					INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
 					INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
 					WHERE datav.sede = '$sede' 
-					limit 500
+					limit 50
 				");
 
 
