@@ -129,6 +129,123 @@ class ModeloPuntero{
 
 	}
 
+	static public function mdlMostrarPunterosv2($tabla, $item, $valor, $sede){
+
+		if($item != null){
+
+			$stmt = Conexion::conectar()->prepare("
+				SELECT 
+					pun.*, 
+					per.*, 
+					per_lider.nombre AS nombre_lider, 
+					per_lider.apellido AS apellido_lider, 
+					per_lider.cedula AS cedula_lider, 
+					lider.zona AS zona_lider
+				FROM 
+					puntero pun 
+				INNER JOIN 
+					lider ON lider.id_lider = pun.id_lider 
+				INNER JOIN 
+					personas per ON per.id_persona = lider.id_persona_lider
+				INNER JOIN 
+					personas per_lider ON per_lider.id_persona = lider.id_persona_lider
+				WHERE 
+					per_lider.cedula = :$item
+				");
+
+			//INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
+				//WHERE per.cedula = :$item and datav.sede = '$sede' ");
+
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
+			//$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+
+			$stmt -> execute();
+
+			return $stmt -> fetch();
+
+		}else{
+
+			if ($_SESSION["perfil"] == "Administrador") {
+				// $stmt = Conexion::conectar()->prepare("
+				// 	SELECT pun.*,per.* FROM $tabla as pun
+				// 	inner join personas as per
+				// 	on pun.id_persona_puntero = per.id_persona
+				// 	inner join data_votantes as datav
+				// 	on datav.cedula = per.cedula
+				// 	WHERE datav.sede = '$sede' 
+				// ");
+
+				$stmt = Conexion::conectar()->prepare("
+					SELECT pun.*, per.*, 
+					(
+						SELECT per.nombre FROM personas per inner join lider l 
+							on per.id_persona = l.id_persona_lider 
+						WHERE l.id_lider  = pun.id_lider
+					) as nombre_lider, 
+					(
+						SELECT per.apellido  FROM personas per inner join lider l 
+							on per.id_persona = l.id_persona_lider 
+						WHERE l.id_lider  = pun.id_lider
+					) as apellido_lider,
+					(
+						SELECT per.cedula  FROM personas per inner join lider l 
+							on per.id_persona = l.id_persona_lider 
+						WHERE l.id_lider  = pun.id_lider
+					) as cedula_lider,
+					(
+						SELECT zona FROM lider WHERE id_lider = pun.id_lider
+					) as zona_lider
+					FROM puntero  as pun
+					INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
+					INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
+					WHERE datav.sede = '$sede' 
+					limit 50
+				");
+
+
+			}else{
+
+				$stmt = Conexion::conectar()->prepare("
+						SELECT pun.*, per.*, 
+						(
+							SELECT per.nombre FROM personas per inner join lider l 
+								on per.id_persona = l.id_persona_lider 
+							WHERE l.id_lider  = pun.id_lider
+						) as nombre_lider, 
+						(
+							SELECT per.apellido  FROM personas per inner join lider l 
+								on per.id_persona = l.id_persona_lider 
+							WHERE l.id_lider  = pun.id_lider
+						) as apellido_lider,
+						(
+							SELECT per.cedula  FROM personas per inner join lider l 
+								on per.id_persona = l.id_persona_lider 
+							WHERE l.id_lider  = pun.id_lider
+						) as cedula_lider,
+						(
+							SELECT zona FROM lider WHERE id_lider = pun.id_lider
+						) as zona_lider
+						FROM puntero  as pun
+						INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
+						INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
+						WHERE datav.sede = '$sede' 
+						order by id_puntero desc
+						limit 10
+					");
+			}
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}
+		
+
+
+		$stmt = null;
+
+	}
+
     /*=============================================
 	MOSTRAR PUNTEROS LIDERES
 	=============================================*/

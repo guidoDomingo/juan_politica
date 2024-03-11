@@ -60,6 +60,31 @@
           </form>
 
         </div>
+        <div class="box-header with-border mr-5">
+
+          <form id="loginform" method="post">
+
+            <!-- <label for="buscarVotante">Buscar Votante</label> -->
+
+            <input id="buscarVotante" type="text" name="buscarPuntero" placeholder="Cedula">
+
+            <button type="submit" class="btn btn-primary" title="Ingresar" name="Ingresar">Buscar Puntero</button>
+
+            <?php
+
+            $item = "cedula";
+            $valor = null;
+            $sede = $_SESSION["sede"];
+
+            $votante_buscado = ControladorPuntero::ctrBuscarPunterov2($item, $valor, $sede);
+
+            //var_dump($punteros);
+
+            ?>
+
+          </form>
+
+        </div>
       </div>
 
       <div class="card">
