@@ -113,6 +113,7 @@ class ControladorPuntero{
 			$tabla = "puntero";
 			
 			$respuesta = ModeloPuntero::mdlMostrarPunteros($tabla, $item, $valor, $sede);
+			//return var_dump($respuesta);
 			return $respuesta;
 		}
 

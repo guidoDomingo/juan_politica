@@ -53,7 +53,7 @@
 
             $votante_buscado = ControladorPuntero::ctrBuscarPuntero($item, $valor, $sede);
 
-            //var_dump($punteros);
+           
 
             ?>
 
@@ -76,7 +76,8 @@
             $valor = null;
             $sede = $_SESSION["sede"];
 
-            $votante_buscado = ControladorPuntero::ctrBuscarPunterov2($item, $valor, $sede);
+            
+            $puntero_buscado = ControladorPuntero::ctrBuscarPunterov2($item, $valor, $sede);
 
             //var_dump($punteros);
 
@@ -127,7 +128,10 @@
 
 
               if (!empty($votante_buscado)) {
-                $lista = array($votante_buscado);
+                $lista =$votante_buscado;
+                $punteros = $lista;
+              }else if(!empty($puntero_buscado)){
+                $lista =$puntero_buscado;
                 $punteros = $lista;
               } else {
 
@@ -135,6 +139,7 @@
                 $valor = null;
                 $sede = $_SESSION["sede"];
                 $punteros = ControladorPuntero::ctrMostrarPuntero($item, $valor,$sede);
+                
               }
 
               //return var_dump($punteros);
@@ -144,7 +149,7 @@
                 /*=============================================
                           TRAEMOS EL PUNTERO DE CADA VOTANTE
                         =============================================*/
-
+                //return var_dump($value[0]["id_lider"]);
                 $item = "id_lider";
                 $valor = $value["id_lider"];
                 //return var_dump($valor);
