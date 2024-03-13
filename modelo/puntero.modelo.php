@@ -291,7 +291,7 @@ class ModeloPuntero{
 		}else{
 
 			$stmt = Conexion::conectar()->prepare(
-				"SELECT distinct li.id_lider,per.nombre, per.apellido FROM $tabla as pun
+				"SELECT distinct li.id_lider,per.nombre, per.apellido, per.ciudad, per.cedula FROM $tabla as pun
 				inner join lider as li
 				on pun.id_lider = li.id_lider
 				inner join personas as per 

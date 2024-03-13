@@ -190,8 +190,11 @@
                         TRAEMOS LAS ACCIONES
                         =============================================*/
 
-                $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarPuntero' idPuntero='" . $value['id_persona'] . "' data-toggle='modal' data-target='#modalEditarPuntero'><i class='fa fa-pencil-alt'></i></button><button class='btn btn-danger btnEliminarPuntero' idPuntero='" . $value['id_puntero'] . "'><i class='fa fa-times'></i></button></div>";
+                $botones = "<div class='btn-group'><button class='btn btn-warning btnEditarPuntero' idPuntero='" . $value['id_persona'] . "' data-toggle='modal' data-target='#modalEditarPuntero'><i class='fa fa-pencil-alt'></i></button>";
 
+                /*
+                  <button class='btn btn-danger btnEliminarPuntero' idPuntero='" . $value['id_puntero'] . "'><i class='fa fa-times'></i></button></div>
+                */
                 if ($_SESSION["perfil"] == "vd") {
 
                   echo '
