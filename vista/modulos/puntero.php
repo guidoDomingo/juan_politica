@@ -594,7 +594,7 @@ MODAL EDITAR USUARIO
 
                         echo '
 
-                                      <option value="' . $value["id_lider"] . '">' . $value["nombre"] . '</option>
+                                      <option value="' . $value["id_lider"] . '">' . $value["nombre"].' - '. $value["apellido"] . '</option>
 
 
                                      ';

@@ -34,7 +34,7 @@ class ModeloPuntero{
 				) as zona_lider
 				FROM puntero  as pun
 				INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
-				WHERE per.cedula = '$valor'  
+				WHERE per.id_persona = '$valor'  
 				
 				");
 
@@ -46,7 +46,7 @@ class ModeloPuntero{
 
 			$stmt -> execute();
 
-			return $stmt -> fetchAll();
+			return $stmt -> fetch();
 
 		}else{
 
@@ -223,7 +223,7 @@ class ModeloPuntero{
 		if($item != null){
 
 			$stmt = Conexion::conectar()->prepare("
-				SELECT distinct li.id_lider,per.nombre FROM $tabla as pun
+				SELECT distinct li.id_lider,per.nombre, per.apellido FROM $tabla as pun
 				inner join lider as li
 				on pun.id_lider = li.id_lider
 				inner join personas as per 
@@ -241,7 +241,7 @@ class ModeloPuntero{
 		}else{
 
 			$stmt = Conexion::conectar()->prepare(
-				"SELECT distinct li.id_lider,per.nombre FROM $tabla as pun
+				"SELECT distinct li.id_lider,per.nombre, per.apellido FROM $tabla as pun
 				inner join lider as li
 				on pun.id_lider = li.id_lider
 				inner join personas as per 

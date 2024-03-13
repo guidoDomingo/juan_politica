@@ -46,7 +46,7 @@ $(".tablas").on("click", ".btnEditarPuntero", function () {
   var idPuntero = $(this).attr("idPuntero");
   console.log("puntero", idPuntero);
   var datos = new FormData();
-  datos.append("idPuntero", idPuntero);
+  datos.append("idPersona", idPuntero);
 
   $.ajax({
     url: "ajax/puntero.ajax.php",
@@ -58,24 +58,6 @@ $(".tablas").on("click", ".btnEditarPuntero", function () {
     dataType: "json",
     success: function (respuesta) {
       console.log("respuesta", respuesta);
-
-      var datos = new FormData();
-      datos.append("idLider", respuesta["id_lider"]);
-
-      $.ajax({
-        url: "ajax/puntero.ajax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function (respuesta_lider) {
-          //console.log("respuesta", respuesta_lider);
-
-          $("#nuevoLider").val(respuesta_lider["id_lider"]);
-        },
-      });
 
       $("#editarNombre").val(respuesta["nombre"]);
       $("#editarApellido").val(respuesta["apellido"]);

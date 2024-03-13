@@ -114,6 +114,14 @@ if(isset($_POST["idPuntero"])){
 	$valLider -> ajaxEditarPuntero();
 
 }
+
+if(isset($_POST["idPersona"])){
+
+	$valLider = new AjaxPuntero();
+	$valLider -> idPuntero = $_POST["idPersona"];
+	$valLider -> ajaxEditarPuntero();
+
+}
 	/*=============================================
 VALIDAR NO REPETIR USUARIO
 =============================================*/

@@ -184,7 +184,7 @@ PRODUCTOS MÁS VENDIDOS
           $porcentaje = ceil(intval($votos[0]) * 100 / intval($total["total"]));
 
           echo '<tr>';
-          echo '<td>' . $value["nombre"] . '</td>';
+          echo '<td>' . $value["nombre"] .' '.$value["apellido"] . '</td>';
           echo '<td>' . $votos[0] . '</td>';
           echo '<td>' . $ya_paso_pc["total"] . '</td>';
           // echo '<td>' . $porcentaje . '%</td>';
