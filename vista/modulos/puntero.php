@@ -51,7 +51,7 @@
             $valor = null;
             $sede = $_SESSION["sede"];
 
-            $votante_buscado = ControladorPuntero::ctrBuscarPuntero($item, $valor, $sede);
+            $votante_buscado = ModeloPuntero::mdlBuscadorVotante($item, $valor, $sede);
 
            
 
