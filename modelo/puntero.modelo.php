@@ -641,6 +641,99 @@ class ModeloPuntero{
 
 	}
 
+
+	/*=============================================
+	TOTAL DE VOTOS DISPONIBLES
+	=============================================*/
+
+	static public function mdlTotalVotos($sede) {
+		try {
+			$stmt = Conexion::conectar()->prepare("
+				SELECT COUNT(p.activo) as total
+				FROM puntero p
+				INNER JOIN personas p2 ON p2.id_persona = p.id_persona_puntero
+				INNER JOIN data_votantes dv ON dv.cedula = p2.cedula
+				WHERE dv.sede = :sede
+			");
+	
+			$stmt->bindParam(':sede', $sede, PDO::PARAM_STR);
+			$stmt->execute();
+	
+			$result = $stmt->fetch();
+	
+			// Cerramos la conexión
+			$stmt = null;
+	
+			return $result;
+		} catch (PDOException $e) {
+			// Manejar el error de alguna manera
+			echo "Error: " . $e->getMessage();
+			return false;
+		}
+	}
+
+
+	/*=============================================
+	VOTOS QUE PASARON POR PC
+	=============================================*/
+
+	static public function mdlVotoPorPc($sede){	
+
+		$stmt = Conexion::conectar()->prepare("
+			SELECT count(pun.activo) as total FROM puntero as pun
+			inner join personas as per 
+			on pun.id_persona_puntero = per.id_persona 
+			inner join data_votantes as datav
+			on datav.cedula = per.cedula
+			where pun.activo = 1 and pun.ya_pago = 1 and datav.sede = '$sede' ");
+
+		$stmt -> execute();
+
+		$result = $stmt->fetch();
+	
+		// Cerramos la conexión
+		$stmt = null;
+
+		return $result;
+
+	}
+
+
+	/*=============================================
+	VOTOS POR CIUDAD
+	=============================================*/
+
+	static public function mdlVotoPorCiudad($sede){	
+
+		$stmt = Conexion::conectar()->prepare("
+		SELECT 
+			p2.ciudad, 
+			COUNT(p.activo) AS votos,
+			SUM(CASE WHEN p.activo = 1 THEN 1 ELSE 0 END) AS participacion
+		FROM 
+			puntero p
+		INNER JOIN 
+			personas p2 ON p2.id_persona = p.id_persona_puntero 
+		INNER JOIN 
+			data_votantes dv ON dv.cedula = p2.cedula 
+		WHERE 
+			dv.sede = '$sede' 
+		GROUP BY 
+			p2.ciudad;
+		");
+
+		$stmt -> execute();
+
+		$result = $stmt->fetchAll();
+	
+		// Cerramos la conexión
+		$stmt = null;
+
+		return $result;
+
+	}
+	
+
 	
 
 

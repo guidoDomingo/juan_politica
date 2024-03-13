@@ -77,7 +77,7 @@ PRODUCTOS MÁS VENDIDOS
 <div class="graficos">
 
   <div class="box-header with-border">
-
+    <hr>
     <h3 class="box-title">Punteros con más votantes</h3>
 
   </div>
@@ -160,7 +160,11 @@ PRODUCTOS MÁS VENDIDOS
 
 
   <div class="box-footer no-padding punteroVotante p-3">
-  <table id="example2" class="table table-bordered table-striped tablas text-center">
+    <hr>
+    <br>
+    <h3 class="box-title">Tabla de punteros y sus votantes</h3>
+    <br>
+    <table id="example1" class="table table-bordered table-striped tablas text-center">
       <thead>
         <tr>
           <th>Puntero</th>

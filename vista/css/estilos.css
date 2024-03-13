@@ -48,3 +48,11 @@
 .graficos{
 	width: 100%;
 }
+
+.tabla-container {
+	background-color: #f0f0f0; /* Color de fondo gris */
+	padding: 20px; /* Espacio alrededor de la tabla */
+	border-radius: 5px; /* Bordes redondeados */
+	margin-top: 20px; /* Espacio superior */
+}
+  
