@@ -112,7 +112,7 @@
                 <th>N° de orden</th> -->
                 <!-- <th>Estado veedor</th> -->
                 <?php if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "vd") { ?>
-                  <th>Estado Voatación</th>
+                  <th>Estado Votación</th>
                 <?php } ?>
                 <?php if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "pc") { ?>
                   <th>Estado PC</th>
