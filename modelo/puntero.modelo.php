@@ -531,12 +531,12 @@ class ModeloPuntero{
 
 	static public function mdlSumaTotalVotante($tabla,$sede){	
 
-		$stmt = Conexion::conectar()->prepare("SELECT count(pun.activo) as total FROM puntero as pun
-		inner join personas as per 
-		on pun.id_persona_puntero = per.id_persona 
-		inner join data_votantes as datav
-		on datav.cedula = per.cedula
-		where pun.activo = 1 and datav.sede = '$sede' ");
+		$stmt = Conexion::conectar()->prepare("
+			SELECT count(pun.activo) as total 
+			FROM puntero as pun
+			inner join lider as li 
+			on li.id_lider  = pun.id_lider 
+			where pun.activo = 0 and li.zona = = '$sede' ");
 
 		$stmt -> execute();
 
@@ -580,12 +580,12 @@ class ModeloPuntero{
 
 	static public function mdlTodaviaNoVotaron($tabla,$sede){	
 
-		$stmt = Conexion::conectar()->prepare("SELECT count(pun.activo) as total FROM puntero as pun
-								inner join personas as per 
-								on pun.id_persona_puntero = per.id_persona 
-								inner join data_votantes as datav
-								on datav.cedula = per.cedula
-								where pun.activo = 0 and datav.sede = '$sede' ");
+		$stmt = Conexion::conectar()->prepare("
+								SELECT count(pun.activo) as total 
+								FROM puntero as pun
+								inner join lider as li 
+								on li.id_lider  = pun.id_lider
+								where pun.activo = 0 and li.zona = '$sede' ");
 
 		$stmt -> execute();
 
@@ -751,12 +751,11 @@ class ModeloPuntero{
 	static public function mdlVotoPorPc($sede){	
 
 		$stmt = Conexion::conectar()->prepare("
-			SELECT count(pun.activo) as total FROM puntero as pun
-			inner join personas as per 
-			on pun.id_persona_puntero = per.id_persona 
-			inner join data_votantes as datav
-			on datav.cedula = per.cedula
-			where pun.activo = 1 and pun.ya_pago = 1 and datav.sede = '$sede' ");
+		SELECT count(pun.activo) as total 
+		FROM puntero as pun
+		inner join lider as li 
+		on li.id_lider  = pun.id_lider 
+		where pun.activo = 1 and pun.ya_pago = 1 and li.zona  = '$sede' ");
 
 		$stmt -> execute();
 
