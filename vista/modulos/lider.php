@@ -86,7 +86,7 @@
                                           
                                         <button class="btn btn-warning btnEditarLider" idPersona="' . $value["id_persona"] . '" data-toggle="modal" data-target="#modalEditarLider"><i class="fa fa-pencil-alt"></i></button>
 
-                                        <button class="btn btn-danger btnEliminarLider" idPersona="' . $value["id_persona"] . '"  idLider="' . $value["id_lider"] . '"><i class="fa fa-times"></i></button>
+                                        
 
                                       </div>  
 
@@ -105,6 +105,8 @@
         </div>
         <!-- /.card-body -->
       </div>
+
+      <!-- <button class="btn btn-danger btnEliminarLider" idPersona="' . $value["id_persona"] . '"  idLider="' . $value["id_lider"] . '"><i class="fa fa-times"></i></button> -->
 
     </div>
 
