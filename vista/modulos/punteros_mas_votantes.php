@@ -33,9 +33,11 @@ PRODUCTOS MÁS VENDIDOS
 
 </div> -->
 <h3 class="box-title">Punteros con más votos</h3>
-<div>
-  <canvas id="myChart"></canvas>
+
+<div id="container" style="width: 100%;"><!-- Contenedor principal -->
+    <canvas id="myChart" style="width: 100%;"></canvas><!-- Gráfico -->
 </div>
+
 
 <div class="box-footer no-padding punteroVotante p-3">
   <hr>
