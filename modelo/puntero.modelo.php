@@ -299,7 +299,7 @@ class ModeloPuntero{
 					per_lider.cedula AS cedula, 
 					per_lider.ciudad AS ciudad,
 					COUNT(pun.id_lider) AS total_votantes, 
-					SUM(CASE WHEN pun.ya_pago = 1 THEN 1 ELSE 0 END) AS paso_pc,
+					SUM(CASE WHEN pun.ya_pago = 1 and pun.activo = 1 THEN 1 ELSE 0 END) AS paso_pc,
 					SUM(CASE WHEN pun.activo = 1 THEN 1 ELSE 0 END) AS ya_voto
 				FROM 
 					puntero pun 
