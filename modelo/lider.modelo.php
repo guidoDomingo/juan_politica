@@ -8,7 +8,7 @@ class ModeloLider{
 	MOSTRAR USUARIOS
 	=============================================*/
 
-	static public function mdlMostrarLideres($tabla, $item, $valor){
+	static public function mdlMostrarLideres($tabla, $item, $valor, $sede){
 
 		if($item != null){
 
@@ -29,7 +29,9 @@ class ModeloLider{
 			$stmt = Conexion::conectar()->prepare(
 				"SELECT * FROM $tabla as li
 				inner join personas as per
-				on li.id_persona_lider = per.id_persona ");
+				on li.id_persona_lider = per.id_persona
+				where li.zona = '$sede'
+				 ");
 
 			$stmt -> execute();
 

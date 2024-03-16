@@ -40,7 +40,7 @@
 
 .punteroVotante{
 	border:1px solid #E61A1A;
-	width: 70%;
+	width: 100% !important;
 }
 #pieChart {
 	width: 100%;

@@ -64,8 +64,9 @@
 
               $item = null;
               $valor = null;
+              $sede = $_SESSION["sede"];
 
-              $lider = ControladorLider::ctrMostrarLideres($item, $valor);
+              $lider = ControladorLider::ctrMostrarLideres($item, $valor,$sede);
 
 
               foreach ($lider as $key => $value) {

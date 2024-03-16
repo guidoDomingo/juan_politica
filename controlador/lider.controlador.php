@@ -92,11 +92,11 @@ class ControladorLider{
 	MOSTRAR USUARIO
 	=============================================*/
 
-	static public function ctrMostrarLideres($item, $valor){
+	static public function ctrMostrarLideres($item, $valor, $sede){
 
 		$tabla = "lider";
 
-		$respuesta = ModeloLider::mdlMostrarLideres($tabla, $item, $valor);
+		$respuesta = ModeloLider::mdlMostrarLideres($tabla, $item, $valor, $sede);
 
 		return $respuesta;
 	}

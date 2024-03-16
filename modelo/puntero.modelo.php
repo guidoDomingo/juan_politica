@@ -291,12 +291,34 @@ class ModeloPuntero{
 		}else{
 
 			$stmt = Conexion::conectar()->prepare(
-				"SELECT distinct li.id_lider,per.nombre, per.apellido, per.ciudad, per.cedula FROM $tabla as pun
-				inner join lider as li
-				on pun.id_lider = li.id_lider
-				inner join personas as per 
-				on li.id_persona_lider = per.id_persona 
-				WHERE li.zona  = '$sede'
+				"
+				SELECT 
+					lider.id_lider,
+					per_lider.nombre AS nombre, 
+					per_lider.apellido AS apellido, 
+					per_lider.cedula AS cedula, 
+					per_lider.ciudad AS ciudad,
+					COUNT(pun.id_lider) AS total_votantes, 
+					SUM(CASE WHEN pun.ya_pago = 1 THEN 1 ELSE 0 END) AS paso_pc,
+					SUM(CASE WHEN pun.activo = 1 THEN 1 ELSE 0 END) AS ya_voto
+				FROM 
+					puntero pun 
+				INNER JOIN 
+					lider ON lider.id_lider = pun.id_lider 
+				INNER JOIN 
+					personas per_lider ON per_lider.id_persona = lider.id_persona_lider
+				INNER JOIN 
+					personas per_votante ON per_votante.id_persona = pun.id_persona_puntero 
+				GROUP BY 
+					lider.id_lider,
+					per_lider.nombre, 
+					per_lider.apellido, 
+					per_lider.cedula, 
+					per_lider.ciudad,
+					lider.zona
+				HAVING  
+					lider.zona = '$sede';
+			
 				");
 
 			$stmt -> execute();
@@ -701,9 +723,8 @@ class ModeloPuntero{
 			$stmt = Conexion::conectar()->prepare("
 				SELECT COUNT(p.activo) as total
 				FROM puntero p
-				INNER JOIN personas p2 ON p2.id_persona = p.id_persona_puntero
-				INNER JOIN data_votantes dv ON dv.cedula = p2.cedula
-				WHERE dv.sede = :sede
+				INNER JOIN lider ON lider.id_lider = p.id_lider
+				WHERE lider.zona = :sede
 			");
 	
 			$stmt->bindParam(':sede', $sede, PDO::PARAM_STR);

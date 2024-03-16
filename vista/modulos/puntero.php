@@ -53,7 +53,7 @@
 
             $votante_buscado = ModeloPuntero::mdlBuscadorVotante($item, $valor, $sede);
 
-           
+
 
             ?>
 
@@ -76,7 +76,7 @@
             $valor = null;
             $sede = $_SESSION["sede"];
 
-            
+
             $puntero_buscado = ControladorPuntero::ctrBuscarPunterov2($item, $valor, $sede);
 
             //var_dump($punteros);
@@ -128,18 +128,17 @@
 
 
               if (!empty($votante_buscado)) {
-                $lista =$votante_buscado;
+                $lista = $votante_buscado;
                 $punteros = $lista;
-              }else if(!empty($puntero_buscado)){
-                $lista =$puntero_buscado;
+              } else if (!empty($puntero_buscado)) {
+                $lista = $puntero_buscado;
                 $punteros = $lista;
               } else {
 
                 $item = null;
                 $valor = null;
                 $sede = $_SESSION["sede"];
-                $punteros = ControladorPuntero::ctrMostrarPuntero($item, $valor,$sede);
-                
+                $punteros = ControladorPuntero::ctrMostrarPuntero($item, $valor, $sede);
               }
 
               //return var_dump($punteros);
@@ -322,9 +321,9 @@ MODAL AGREGAR USUARIO
                       $item = null;
                       $valor = null;
                       $sede = $_SESSION["sede"];
-                      
-                      $punteros = ControladorLider::ctrMostrarLideres($item, $valor);
-                      
+
+                      $punteros = ControladorLider::ctrMostrarLideres($item, $valor, $sede);
+
                       foreach ($punteros as $key => $value) {
 
                         echo '
@@ -570,46 +569,34 @@ MODAL EDITAR USUARIO
 
 
             <div class="row ">
+              <!-- ENTRADA PARA SELECCIONAR EL LIDER-->
 
+              <div class="form-group ">
+
+                <div class="input-group">
+                  <button class="btn btn-outline-secondary editarTexto" type="button" style="width: 40%;">
+                    <i class="fa fa-users"> Lider</i>
+                  </button>
+
+                  <select class="form-control select2" name="editarLider" id="nuevoLider" style="width: 60%;">
+                    <option value="">Selecionar Lider</option>
+                    <?php
+                    $item = null;
+                    $valor = null;
+                    $sede = $_SESSION["sede"];
+                    $punteros = ControladorLider::ctrMostrarLideres($item, $valor,$sede);
+                    foreach ($punteros as $key => $value) {
+                      echo '<option value="' . $value["id_lider"] . '">' . $value["nombre"] . ' - ' . $value["apellido"]. ' - ' . $value["cedula"] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+
+
+              </div>
               <div class="col-md-6">
 
-                <!-- ENTRADA PARA SELECCIONAR EL LIDER-->
 
-                <div class="form-group ">
-
-                  <div class="input-group ">
-
-                    <button class="btn btn-outline-secondary editarTexto" type="button">
-                      <i class="fa fa-users"> Lider</i>
-                    </button>
-
-                    <select class="form-control input-lg " name="editarLider" id="nuevoLider">
-
-                      <option value="">Selecionar Lider</option>
-                      <?php
-
-                      $item = null;
-                      $valor = null;
-
-                      $punteros = ControladorLider::ctrMostrarLideres($item, $valor);
-
-                      foreach ($punteros as $key => $value) {
-
-                        echo '
-
-                                      <option value="' . $value["id_lider"] . '">' . $value["nombre"].' - '. $value["apellido"] . '</option>
-
-
-                                     ';
-                      }
-                      ?>
-
-
-                    </select>
-
-                  </div>
-
-                </div>
 
                 <!-- ENTRADA PARA EL NOMBRE -->
 
