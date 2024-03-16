@@ -22,71 +22,40 @@
 
     <div class="box">
 
-      <div class="d-flex justify-content-between">
+      <div class="d-flex flex-column flex-md-row justify-content-between">
         <div class="box-header with-border mb-2">
           <?php if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "pc") { ?>
-
             <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarPuntero">
-
               Agregar votante
-
             </button>
-
           <?php } ?>
-
         </div>
-        <div class="box-header with-border mr-5">
-
+        <div class="box-header with-border mr-md-5 mb-2 mb-md-0">
           <form id="loginform" method="post">
-
-            <!-- <label for="buscarVotante">Buscar Votante</label> -->
-
-            <input id="buscarVotante" type="text" name="buscarVotante" placeholder="Cedula">
-
-            <button type="submit" class="btn btn-primary" title="Ingresar" name="Ingresar">Buscar Votante</button>
-
+            <input id="buscarVotante" type="text" name="buscarVotante" placeholder="Buscar Votante">
+            <button type="submit" class="btn btn-primary" title="Buscar" name="buscarVotanteBtn">Buscar</button>
             <?php
-
             $item = "cedula";
             $valor = null;
             $sede = $_SESSION["sede"];
-
             $votante_buscado = ModeloPuntero::mdlBuscadorVotante($item, $valor, $sede);
-
-
-
             ?>
-
           </form>
-
         </div>
-        <div class="box-header with-border mr-5">
-
+        <div class="box-header with-border mr-md-5">
           <form id="loginform" method="post">
-
-            <!-- <label for="buscarVotante">Buscar Votante</label> -->
-
-            <input id="buscarVotante" type="text" name="buscarPuntero" placeholder="Cedula">
-
-            <button type="submit" class="btn btn-primary" title="Ingresar" name="Ingresar">Buscar Puntero</button>
-
+            <input id="buscarPuntero" type="text" name="buscarPuntero" placeholder="Buscar Puntero">
+            <button type="submit" class="btn btn-primary" title="Buscar" name="buscarPunteroBtn">Buscar</button>
             <?php
-
             $item = "cedula";
             $valor = null;
             $sede = $_SESSION["sede"];
-
-
             $puntero_buscado = ControladorPuntero::ctrBuscarPunterov2($item, $valor, $sede);
-
-            //var_dump($punteros);
-
             ?>
-
           </form>
-
         </div>
       </div>
+
 
       <div class="card">
         <div class="card-header">
@@ -584,9 +553,9 @@ MODAL EDITAR USUARIO
                     $item = null;
                     $valor = null;
                     $sede = $_SESSION["sede"];
-                    $punteros = ControladorLider::ctrMostrarLideres($item, $valor,$sede);
+                    $punteros = ControladorLider::ctrMostrarLideres($item, $valor, $sede);
                     foreach ($punteros as $key => $value) {
-                      echo '<option value="' . $value["id_lider"] . '">' . $value["nombre"] . ' - ' . $value["apellido"]. ' - ' . $value["cedula"] . '</option>';
+                      echo '<option value="' . $value["id_lider"] . '">' . $value["nombre"] . ' - ' . $value["apellido"] . ' - ' . $value["cedula"] . '</option>';
                     }
                     ?>
                   </select>
