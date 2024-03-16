@@ -536,7 +536,7 @@ class ModeloPuntero{
 			FROM puntero as pun
 			inner join lider as li 
 			on li.id_lider  = pun.id_lider 
-			where pun.activo = 0 and li.zona = = '$sede' ");
+			where pun.activo = 1 and li.zona = '$sede' ");
 
 		$stmt -> execute();
 
