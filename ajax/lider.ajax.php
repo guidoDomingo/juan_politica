@@ -15,7 +15,8 @@ class AjaxLider{
 
 		$item = "id_persona";
 		$valor = $this->idPersona;
-		$respuesta = ControladorLider::ctrMostrarLideres($item, $valor);
+		$sede = null;
+		$respuesta = ControladorLider::ctrMostrarLideres($item, $valor,$sede);
 
 		echo json_encode($respuesta);
 
