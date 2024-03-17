@@ -107,9 +107,7 @@ class ControladorLider{
 
 		if(isset($_POST["editarNombre"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"]) &&
-			   preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarApellido"]) &&
-			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarCedula"])){
+			if(true){
 
 			   	
 
