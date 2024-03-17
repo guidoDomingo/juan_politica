@@ -32,8 +32,8 @@ class AjaxLider{
 
 		$item = "cedula";
 		$valor = $this->validarLider;
-
-		$respuesta = ControladorLider::ctrMostrarLideres($item, $valor);
+		$sede = null;
+		$respuesta = ControladorLider::ctrMostrarLideres($item, $valor,$sede);
 
 		echo json_encode($respuesta);
 

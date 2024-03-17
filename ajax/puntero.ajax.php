@@ -49,8 +49,8 @@ class AjaxPuntero{
 
 		$item = "cedula";
 		$valor = $this->validarPuntero;
-		$sede = $_SESSION["sede"];
-		$respuesta = ControladorPuntero::ctrMostrarPuntero($item, $valor,$sede);
+		$sede = null;
+		$respuesta = ModeloPuntero::mdlValidaCedula($item, $valor);
 
 		echo json_encode($respuesta);
 

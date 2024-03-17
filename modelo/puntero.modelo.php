@@ -130,6 +130,52 @@ class ModeloPuntero{
 		$stmt = null;
 
 	}
+	static public function mdlValidaCedula($item, $valor){
+
+		if($item != null){
+
+			$stmt = Conexion::conectar()->prepare("
+				SELECT pun.*, per.*, 
+				(
+					SELECT per.nombre FROM personas per inner join lider l 
+						on per.id_persona = l.id_persona_lider 
+					WHERE l.id_lider  = pun.id_lider
+				) as nombre_lider, 
+				(
+					SELECT per.apellido  FROM personas per inner join lider l 
+						on per.id_persona = l.id_persona_lider 
+					WHERE l.id_lider  = pun.id_lider
+				) as apellido_lider,
+				(
+					SELECT per.cedula  FROM personas per inner join lider l 
+						on per.id_persona = l.id_persona_lider 
+					WHERE l.id_lider  = pun.id_lider
+				) as cedula_lider,
+				(
+					SELECT zona FROM lider WHERE id_lider = pun.id_lider
+				) as zona_lider
+				FROM puntero  as pun
+				INNER JOIN personas as per ON pun.id_persona_puntero = per.id_persona
+				WHERE per.cedula = '$valor'  
+				
+				");
+
+			//INNER JOIN data_votantes as datav ON datav.cedula = per.cedula
+				//WHERE per.cedula = :$item and datav.sede = '$sede' ");
+
+			//$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+			//$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+
+			$stmt -> execute();
+
+			return $stmt -> fetch();
+
+		}
+
+
+		$stmt = null;
+
+	}
 
 	static public function mdlBuscadorVotante($item, $valor){
 
